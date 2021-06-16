@@ -76,8 +76,6 @@ public class JarLoader extends URLClassLoader {
                 System.out.println("Added to classpath: " + url.toString());
             }
 
-            //URL configUrl = configDir.toURI().toURL();
-
             File runtimeDepsDir = new File("/java_runtime_dependencies/");
             File[] dependenciesDirectoryListing = runtimeDepsDir.listFiles();
 
@@ -88,15 +86,13 @@ public class JarLoader extends URLClassLoader {
                 System.out.println("Added to classpath: " + url.toString());
             }
 
-            //URL runtimeDependenciesUrl = runtimeDepsDir.toURI().toURL();
+            URL configUrl = configDir.toURI().toURL();
+            method.invoke(this, configUrl);
+            System.out.println("Updated OpenWhisk JarLoader classpath with: " + configUrl);
 
-            //method.invoke(this, configUrl);
-
-            //System.out.println("Updated OpenWhisk JarLoader classpath with: " + configUrl);
-
-            //method.invoke(this, runtimeDependenciesUrl);
-
-            //System.out.println("Updated OpenWhisk JarLoader classpath with: " + runtimeDependenciesUrl);
+            URL runtimeDependenciesUrl = runtimeDepsDir.toURI().toURL();
+            method.invoke(this, runtimeDependenciesUrl);
+            System.out.println("Updated OpenWhisk JarLoader classpath with: " + runtimeDependenciesUrl);
 	    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | NullPointerException e) {
         	System.out.println("WARNING: Could not update Java ClassPath...");
         	e.printStackTrace();
