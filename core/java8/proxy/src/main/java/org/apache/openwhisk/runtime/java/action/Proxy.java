@@ -31,6 +31,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import java.lang.reflect.Method;
+import java.io.File;
+import java.net.URLClassLoader;
+import java.net.URL;
+
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -134,6 +139,29 @@ public class Proxy {
 
             ClassLoader cl = Thread.currentThread().getContextClassLoader();
             SecurityManager sm = System.getSecurityManager();
+
+	    try {
+		    Class urlClass = URLClassLoader.class;
+		    Method method = urlClass.getDeclaredMethod("addURL", new Class[]{URL.class});
+	            method.setAccessible(true);
+            
+	            File configDir = new File("/conf/");
+	            URL configUrl = configDir.toURL();
+
+		    File runtimeDepsDir = new File("/java_runtime_dependencies/");
+ 		    URL runtimeDependenciesUrl = runtimeDepsDir.toURL();
+
+	            method.invoke(loader, new Object[]{configUrl});
+
+   		    System.out.println("Updated OpenWhisk JarLoader classpath with: " + configUrl);
+
+		    method.invoke(loader, new Object[]{runtimeDependenciesUrl});
+
+		    System.out.println("Updated OpenWhisk JarLoader classpath with: " + runtimeDependenciesUrl);
+	    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+		System.out.println("WARNING: Could not update Java ClassPath...");
+		e.printStackTrace();
+	    }
 
             try {
                 InputStream is = t.getRequestBody();

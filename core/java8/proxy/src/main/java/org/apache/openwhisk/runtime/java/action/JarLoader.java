@@ -62,6 +62,30 @@ public class JarLoader extends URLClassLoader {
 
         this.mainClass = loadClass(entrypointClassName);
 
+	try {
+                Class urlClass = URLClassLoader.class;
+                Method method = urlClass.getDeclaredMethod("addURL", new Class[]{URL.class});
+                method.setAccessible(true);
+
+                File configDir = new File("/conf/");
+                URL configUrl = configDir.toURL();
+
+                File runtimeDepsDir = new File("/java_runtime_dependencies/");
+                URL runtimeDependenciesUrl = runtimeDepsDir.toURL();
+
+                method.invoke(loader, new Object[]{configUrl});
+
+                System.out.println("Updated OpenWhisk JarLoader classpath with: " + configUrl);
+
+                method.invoke(loader, new Object[]{runtimeDependenciesUrl});
+
+                System.out.println("Updated OpenWhisk JarLoader classpath with: " + runtimeDependenciesUrl);
+	} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+        	System.out.println("WARNING: Could not update Java ClassPath...");
+                e.printStackTrace();
+        }
+
+
         Method m = mainClass.getMethod(entrypointMethodName, new Class[] { JsonObject.class });
         m.setAccessible(true);
         int modifiers = m.getModifiers();
