@@ -20,6 +20,7 @@ package org.apache.openwhisk.runtime.java.action;
 import java.io.File;
 import java.io.InputStream;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.MalformedURLException;
@@ -62,27 +63,27 @@ public class JarLoader extends URLClassLoader {
 
         this.mainClass = loadClass(entrypointClassName);
 
-	try {
-                Class urlClass = URLClassLoader.class;
-                Method method = urlClass.getDeclaredMethod("addURL", new Class[]{URL.class});
-                method.setAccessible(true);
+        try {
+            Class urlClass = URLClassLoader.class;
+            Method method = urlClass.getDeclaredMethod("addURL", new Class[]{URL.class});
+            method.setAccessible(true);
 
-                File configDir = new File("/conf/");
-                URL configUrl = configDir.toURL();
+            File configDir = new File("/conf/");
+            URL configUrl = configDir.toURL();
 
-                File runtimeDepsDir = new File("/java_runtime_dependencies/");
-                URL runtimeDependenciesUrl = runtimeDepsDir.toURL();
+            File runtimeDepsDir = new File("/java_runtime_dependencies/");
+            URL runtimeDependenciesUrl = runtimeDepsDir.toURL();
 
-                method.invoke(loader, new Object[]{configUrl});
+            method.invoke(this, new Object[]{configUrl});
 
-                System.out.println("Updated OpenWhisk JarLoader classpath with: " + configUrl);
+            System.out.println("Updated OpenWhisk JarLoader classpath with: " + configUrl);
 
-                method.invoke(loader, new Object[]{runtimeDependenciesUrl});
+            method.invoke(this, new Object[]{runtimeDependenciesUrl});
 
-                System.out.println("Updated OpenWhisk JarLoader classpath with: " + runtimeDependenciesUrl);
-	} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            System.out.println("Updated OpenWhisk JarLoader classpath with: " + runtimeDependenciesUrl);
+	    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
         	System.out.println("WARNING: Could not update Java ClassPath...");
-                e.printStackTrace();
+        	e.printStackTrace();
         }
 
 
