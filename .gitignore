@@ -3,6 +3,10 @@ nginx.conf
 whisk.properties
 default.props
 
+hops-metadata-dal-impl-ndb-3.2.0.3-SNAPSHOT-jar-with-dependencies.jar
+
+core/java8/libs/
+
 .ant-targets-build.xml
 /results/
 /logs/
