@@ -67,19 +67,37 @@ public class JarLoader extends URLClassLoader {
             method.setAccessible(true);
 
             File configDir = new File("/conf/");
-            URL configUrl = configDir.toURI().toURL();
+            File[] configDirectoryListing = configDir.listFiles();
+
+            for (File child : configDirectoryListing) {
+                URL url = child.toURI().toURL();
+                method.invoke(this, url);
+
+                System.out.println("Added to classpath: " + url.toString());
+            }
+
+            //URL configUrl = configDir.toURI().toURL();
 
             File runtimeDepsDir = new File("/java_runtime_dependencies/");
-            URL runtimeDependenciesUrl = runtimeDepsDir.toURI().toURL();
+            File[] dependenciesDirectoryListing = configDir.listFiles();
 
-            method.invoke(this, configUrl);
+            for (File child : dependenciesDirectoryListing) {
+                URL url = child.toURI().toURL();
+                method.invoke(this, url);
 
-            System.out.println("Updated OpenWhisk JarLoader classpath with: " + configUrl);
+                System.out.println("Added to classpath: " + url.toString());
+            }
 
-            method.invoke(this, runtimeDependenciesUrl);
+            //URL runtimeDependenciesUrl = runtimeDepsDir.toURI().toURL();
 
-            System.out.println("Updated OpenWhisk JarLoader classpath with: " + runtimeDependenciesUrl);
-	    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            //method.invoke(this, configUrl);
+
+            //System.out.println("Updated OpenWhisk JarLoader classpath with: " + configUrl);
+
+            //method.invoke(this, runtimeDependenciesUrl);
+
+            //System.out.println("Updated OpenWhisk JarLoader classpath with: " + runtimeDependenciesUrl);
+	    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | NullPointerException e) {
         	System.out.println("WARNING: Could not update Java ClassPath...");
         	e.printStackTrace();
         }
