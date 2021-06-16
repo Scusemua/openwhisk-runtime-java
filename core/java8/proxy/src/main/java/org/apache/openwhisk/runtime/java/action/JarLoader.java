@@ -79,7 +79,7 @@ public class JarLoader extends URLClassLoader {
             //URL configUrl = configDir.toURI().toURL();
 
             File runtimeDepsDir = new File("/java_runtime_dependencies/");
-            File[] dependenciesDirectoryListing = configDir.listFiles();
+            File[] dependenciesDirectoryListing = runtimeDepsDir.listFiles();
 
             for (File child : dependenciesDirectoryListing) {
                 URL url = child.toURI().toURL();
