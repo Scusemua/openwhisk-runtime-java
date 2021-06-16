@@ -141,29 +141,6 @@ public class Proxy {
             SecurityManager sm = System.getSecurityManager();
 
             try {
-                Class<URLClassLoader> urlClass = URLClassLoader.class;
-                Method method = urlClass.getDeclaredMethod("addURL", URL.class);
-                method.setAccessible(true);
-
-                File configDir = new File("/conf/");
-                URL configUrl = configDir.toURI().toURL();
-
-                File runtimeDepsDir = new File("/java_runtime_dependencies/");
-                URL runtimeDependenciesUrl = runtimeDepsDir.toURI().toURL();
-
-                method.invoke(loader, configUrl);
-
-                System.out.println("Updated OpenWhisk JarLoader classpath with: " + configUrl);
-
-                method.invoke(loader, runtimeDependenciesUrl);
-
-                System.out.println("Updated OpenWhisk JarLoader classpath with: " + runtimeDependenciesUrl);
-            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-                System.out.println("WARNING: Could not update Java ClassPath...");
-                e.printStackTrace();
-            }
-
-            try {
                 InputStream is = t.getRequestBody();
                 JsonParser parser = new JsonParser();
                 JsonObject body = parser.parse(new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))).getAsJsonObject();

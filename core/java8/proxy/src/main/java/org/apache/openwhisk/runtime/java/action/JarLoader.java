@@ -61,24 +61,22 @@ public class JarLoader extends URLClassLoader {
         final String entrypointClassName = splittedEntrypoint[0];
         final String entrypointMethodName = splittedEntrypoint.length > 1 ? splittedEntrypoint[1] : "main";
 
-        this.mainClass = loadClass(entrypointClassName);
-
         try {
-            Class urlClass = URLClassLoader.class;
-            Method method = urlClass.getDeclaredMethod("addURL", new Class[]{URL.class});
+            Class<URLClassLoader> urlClass = URLClassLoader.class;
+            Method method = urlClass.getDeclaredMethod("addURL", URL.class);
             method.setAccessible(true);
 
             File configDir = new File("/conf/");
-            URL configUrl = configDir.toURL();
+            URL configUrl = configDir.toURI().toURL();
 
             File runtimeDepsDir = new File("/java_runtime_dependencies/");
-            URL runtimeDependenciesUrl = runtimeDepsDir.toURL();
+            URL runtimeDependenciesUrl = runtimeDepsDir.toURI().toURL();
 
-            method.invoke(this, new Object[]{configUrl});
+            method.invoke(this, configUrl);
 
             System.out.println("Updated OpenWhisk JarLoader classpath with: " + configUrl);
 
-            method.invoke(this, new Object[]{runtimeDependenciesUrl});
+            method.invoke(this, runtimeDependenciesUrl);
 
             System.out.println("Updated OpenWhisk JarLoader classpath with: " + runtimeDependenciesUrl);
 	    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
@@ -86,8 +84,9 @@ public class JarLoader extends URLClassLoader {
         	e.printStackTrace();
         }
 
+        this.mainClass = loadClass(entrypointClassName);
 
-        Method m = mainClass.getMethod(entrypointMethodName, new Class[] { JsonObject.class });
+        Method m = mainClass.getMethod(entrypointMethodName, JsonObject.class);
         m.setAccessible(true);
         int modifiers = m.getModifiers();
         if (m.getReturnType() != JsonObject.class || !Modifier.isStatic(modifiers) || !Modifier.isPublic(modifiers)) {
