@@ -189,6 +189,8 @@ public class Proxy {
     }
 
     public static void main(String args[]) throws Exception {
+        System.setProperty("sun.io.serialization.extendedDebugInfo", "true");
+
         Proxy proxy = new Proxy(8080);
         proxy.start();
     }
