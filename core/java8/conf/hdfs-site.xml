@@ -17,10 +17,13 @@
 <!-- Put site-specific property overrides in this file. -->
 
 <configuration>
-   <property> 
-      <name>dfs.secondary.http.address</name>
-      <value>10.150.0.13:50090</value>
-      <description>SecondaryNameNodeHostname</description>
+   <property>
+      <name>serverless.endpoint</name>
+      <value>https://127.0.0.1:443/api/v1/web/whisk.system/default/namenode</value>
+   </property>
+   <property>
+      <name>serverless.platform</name>
+      <value>openwhisk</value>
    </property>
    <property>
       <name>dfs.storage.driver.configfile</name>
@@ -28,7 +31,7 @@
    </property>
    <property>
       <name>dfs.storage.driver.jarFile</name>
-      <value>/metadata-dal/hops-metadata-dal-impl-ndb-3.2.0.3-SNAPSHOT-jar-with-dependencies.jar</value>
+      <value>/metadata-dal/hops-metadata-dal-impl-ndb-3.2.0.3-SNAPSHOT.jar</value>
    </property>
    <property>
       <name>dfs.storage.driver.class</name>

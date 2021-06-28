@@ -55,7 +55,7 @@ ADD proxy /javaAction
 ADD ndb-config.properties /metadata-dal/ndb-config.properties
 
 # This is the Metadata DAL NDB implementation. Used by serverless namenode to communicate with NDB.
-ADD hops-metadata-dal-impl-ndb-3.2.0.3-SNAPSHOT-jar-with-dependencies.jar /metadata-dal/hops-metadata-dal-impl-ndb-3.2.0.3-SNAPSHOT-jar-with-dependencies.jar
+ADD hops-metadata-dal-impl-ndb-3.2.0.3-SNAPSHOT.jar /metadata-dal/hops-metadata-dal-impl-ndb-3.2.0.3-SNAPSHOT.jar
 #ADD hops-metadata-dal-3.2.0.3-SNAPSHOT.jar /metadata-dal/hops-metadata-dal-3.2.0.3-SNAPSHOT.jar
 
 # This contains more required HopsFS/Hadoop code, but it is not necessarily specific to the serverless namenode or HDFS itself.
