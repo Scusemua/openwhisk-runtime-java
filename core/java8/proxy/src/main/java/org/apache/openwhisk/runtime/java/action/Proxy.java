@@ -83,6 +83,8 @@ public class Proxy {
 
     private class InitHandler implements HttpHandler {
         public void handle(HttpExchange t) throws IOException {
+            System.setProperty("sun.io.serialization.extendedDebugInfo", "true");
+
             if (loader != null) {
                 String errorMessage = "Cannot initialize the action more than once.";
                 System.err.println(errorMessage);

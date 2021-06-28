@@ -61,6 +61,8 @@ public class JarLoader extends URLClassLoader {
         final String entrypointClassName = splittedEntrypoint[0];
         final String entrypointMethodName = splittedEntrypoint.length > 1 ? splittedEntrypoint[1] : "main";
 
+        System.setProperty("sun.io.serialization.extendedDebugInfo", "true");
+
         try {
             Class<URLClassLoader> urlClass = URLClassLoader.class;
             Method method = urlClass.getDeclaredMethod("addURL", URL.class);
@@ -90,9 +92,9 @@ public class JarLoader extends URLClassLoader {
             method.invoke(this, configUrl);
             System.out.println("Updated OpenWhisk JarLoader classpath with: " + configUrl);
 
-            URL runtimeDependenciesUrl = runtimeDepsDir.toURI().toURL();
+            /*URL runtimeDependenciesUrl = runtimeDepsDir.toURI().toURL();
             method.invoke(this, runtimeDependenciesUrl);
-            System.out.println("Updated OpenWhisk JarLoader classpath with: " + runtimeDependenciesUrl);
+            System.out.println("Updated OpenWhisk JarLoader classpath with: " + runtimeDependenciesUrl);*/
 	    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | NullPointerException e) {
         	System.out.println("WARNING: Could not update Java ClassPath...");
         	e.printStackTrace();
