@@ -18,6 +18,10 @@
 
 <configuration>
    <property>
+      <name>dfs.replication</name>
+      <value>1</value>
+   </property>
+   <property>
       <name>serverless.endpoint</name>
       <value>https://127.0.0.1:443/api/v1/web/whisk.system/default/namenode</value>
    </property>
