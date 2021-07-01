@@ -34,6 +34,8 @@ RUN rm -rf /var/lib/apt/lists/* \
     && rm -rf /var/lib/apt/lists/* \
     && locale-gen en_US.UTF-8
 
+EXPOSE 50010
+
 # Set some environment variables. 
 # Much of this is done by-default. 
 ENV LANG="en_US.UTF-8" \
