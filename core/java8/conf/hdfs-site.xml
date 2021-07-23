@@ -18,6 +18,10 @@
 
 <configuration>
    <property>
+      <name>dfs.heartbeat.interval</name>
+      <value>5</value>
+   </property>
+   <property>
       <name>dfs.replication</name>
       <value>1</value>
    </property>
@@ -40,5 +44,5 @@
    <property>
       <name>dfs.storage.driver.class</name>
       <value>io.hops.metadata.ndb.NdbStorageFactory</value>
-   </property>   
+   </property>
 </configuration>
