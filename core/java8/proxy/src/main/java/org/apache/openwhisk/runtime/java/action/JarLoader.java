@@ -75,7 +75,8 @@ public class JarLoader extends URLClassLoader {
                 URL url = child.toURI().toURL();
                 method.invoke(this, url);
 
-                System.out.println("Added to classpath: " + url.toString());
+                // Commented-out as this code is working (for now, at least), and this spams the console/output.
+                // System.out.println("Added to classpath: " + url.toString());
             }
 
             File runtimeDepsDir = new File("/java_runtime_dependencies/");
@@ -85,7 +86,8 @@ public class JarLoader extends URLClassLoader {
                 URL url = child.toURI().toURL();
                 method.invoke(this, url);
 
-                System.out.println("Added to classpath: " + url.toString());
+                // Commented-out as this code is working (for now, at least), and this spams the console/output.
+                // System.out.println("Added to classpath: " + url.toString());
             }
 
             URL configUrl = configDir.toURI().toURL();
