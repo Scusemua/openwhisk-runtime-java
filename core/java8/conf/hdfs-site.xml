@@ -17,6 +17,11 @@
 <!-- Put site-specific property overrides in this file. -->
 
 <configuration>
+   <!-- Enable POSIX ACLs. They are disabled by default. -->
+   <property>
+      <name>dfs.namenode.acls.enabled</name>
+      <value>true</value>
+   </property>
    <property>
       <name>dfs.heartbeat.interval</name>
       <value>5</value>
