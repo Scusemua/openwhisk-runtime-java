@@ -158,7 +158,7 @@ public class Proxy {
                 }
 
                 // Add the client's IP address as part of the input.
-                inputObject.addProperty("client_remote_address", t.getRemoteAddress().toString());
+                inputObject.addProperty("client_remote_address", t.getRemoteAddress().getHostName());
 
                 Thread.currentThread().setContextClassLoader(loader);
                 System.setSecurityManager(new WhiskSecurityManager());
