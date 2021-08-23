@@ -188,10 +188,10 @@ public class Proxy {
                     throw new NullPointerException("The action returned null");
                 }
 
-                // Proxy.writeResponse(t, 200, output.toString());
-
-                // Ben implemented this.
-                Proxy.writeResponse(t, output);
+                if (output.has("statusCode"))
+                    Proxy.writeResponse(t, output); // Ben implemented this.
+                else
+                    Proxy.writeResponse(t, 200, output.toString());
 
                 return;
             } catch (InvocationTargetException ite) {
