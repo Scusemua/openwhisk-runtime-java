@@ -68,6 +68,23 @@ public class Proxy {
         os.close();
     }
 
+    /**
+     * Write an HTTP response using information provided by the result of user-code execution.
+     * @param t Used to get an output stream to write the response to.
+     * @param result The result of executing the user's code.
+     */
+    private static void writeResponse(HttpExchange t, JsonObject result) throws IOException {
+        String content = result.toString();
+        byte[] bytes = content.getBytes(StandardCharsets.UTF_8);
+
+        int statusCode = result.get("statusCode").getAsInt();
+        t.sendResponseHeaders(statusCode, bytes.length);
+
+        OutputStream os = t.getResponseBody();
+        os.write(bytes);
+        os.close();
+    }
+
     private static void writeError(HttpExchange t, String errorMessage) throws IOException {
         JsonObject message = new JsonObject();
         message.addProperty("error", errorMessage);
@@ -171,7 +188,11 @@ public class Proxy {
                     throw new NullPointerException("The action returned null");
                 }
 
-                Proxy.writeResponse(t, 200, output.toString());
+                // Proxy.writeResponse(t, 200, output.toString());
+
+                // Ben implemented this.
+                Proxy.writeResponse(t, output);
+
                 return;
             } catch (InvocationTargetException ite) {
                 // These are exceptions from the action, wrapped in ite because
