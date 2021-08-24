@@ -75,6 +75,9 @@ public class Proxy {
      */
     private static void writeResponse(HttpExchange t, JsonObject result) throws IOException {
         String content = result.toString();
+
+        System.out.println("Response content: " + result);
+
         byte[] bytes = content.getBytes(StandardCharsets.UTF_8);
 
         int statusCode = result.get("statusCode").getAsInt();
@@ -122,8 +125,8 @@ public class Proxy {
                         String base64Jar = message.getAsJsonPrimitive("code").getAsString();
 
                         // FIXME: this is obviously not very useful. The idea is that we
-                        // will implement/use a streaming parser for the incoming JSON object so that we
-                        // can stream the contents of the jar straight to a file.
+                        //  will implement/use a streaming parser for the incoming JSON object so that we
+                        //  can stream the contents of the jar straight to a file.
                         InputStream jarIs = new ByteArrayInputStream(base64Jar.getBytes(StandardCharsets.UTF_8));
 
                         // Save the bytes to a file.
@@ -188,10 +191,13 @@ public class Proxy {
                     throw new NullPointerException("The action returned null");
                 }
 
-                if (output.has("statusCode"))
+                if (output.has("statusCode")) {
+                    System.out.println("Writing customized response to user now...");
                     Proxy.writeResponse(t, output); // Ben implemented this.
-                else
+                } else {
+                    System.out.println("Writing standard response to user now...");
                     Proxy.writeResponse(t, 200, output.toString());
+                }
 
                 return;
             } catch (InvocationTargetException ite) {
