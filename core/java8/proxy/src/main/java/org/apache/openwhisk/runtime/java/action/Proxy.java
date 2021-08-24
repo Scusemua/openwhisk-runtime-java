@@ -177,8 +177,9 @@ public class Proxy {
                     } catch (Exception e) {}
                 }
 
+                // =-=-= Commented out bc this is just the IP of the invoker k8s pod =-=-=
                 // Add the client's IP address as part of the input.
-                inputObject.addProperty("client_remote_address", t.getRemoteAddress().getHostName());
+                // inputObject.addProperty("client_remote_address", t.getRemoteAddress().getHostName());
 
                 Thread.currentThread().setContextClassLoader(loader);
                 System.setSecurityManager(new WhiskSecurityManager());
