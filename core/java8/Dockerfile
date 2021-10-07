@@ -67,6 +67,10 @@ ADD hops-metadata-dal-impl-ndb-3.2.0.3-SNAPSHOT.jar /metadata-dal/hops-metadata-
 # Add contents of the conf/ directory to conf/
 ADD conf /conf/
 
+# Add the contents of the native/ directory to native/.
+# These would be the custom-built native hadoop libraries.
+ADD native /native/
+
 # Add contents of the libs/ directory to java_runtime_dependencies/
 ADD libs /java_runtime_dependencies/
 
@@ -80,6 +84,6 @@ RUN cd /javaAction \
 # I added "-Xms512m" and "-Xmx1024m" to increase memory allocated to the JVM.
 #CMD ["java", "-Dfile.encoding=UTF-8", "-Xms512m", "-Xmx1024m", "-Xshareclasses:cacheDir=/javaSharedCache,readonly", "-Xquickstart", "-cp", "/javaAction/build/libs/javaAction-all.jar:/metadata-dal/hops-metadata-dal-3.2.0.3-SNAPSHOT.jar:/javaAction/build/libs/javaAction-all.jar:/conf/:/java_runtime_dependencies/*", "-Djava.library.path=/usr/lib64/", "-Dsun.io.serialization.extendedDebugInfo=true","-Dlog4j.configuration=file:/conf/log4j.properties","org.apache.openwhisk.runtime.java.action.Proxy"]
 
-CMD ["java", "-Dfile.encoding=UTF-8", "-Xms512m", "-Xmx1024m", "-Xshareclasses:cacheDir=/javaSharedCache,readonly", "-Xquickstart", "-cp", "/javaAction/build/libs/javaAction-all.jar", "-Djava.library.path=/usr/lib64/", "-Dsun.io.serialization.extendedDebugInfo=true", "-Dlog4j.configuration=file:/conf/log4j.properties","org.apache.openwhisk.runtime.java.action.Proxy"]
+CMD ["java", "-Dfile.encoding=UTF-8", "-Xms512m", "-Xmx1024m", "-Xshareclasses:cacheDir=/javaSharedCache,readonly", "-Xquickstart", "-cp", "/javaAction/build/libs/javaAction-all.jar", "-Djava.library.path=/native/:/usr/lib64/", "-Dsun.io.serialization.extendedDebugInfo=true", "-Dlog4j.configuration=file:/conf/log4j.properties","org.apache.openwhisk.runtime.java.action.Proxy"]
 
 # CMD ["java", "-Dfile.encoding=UTF-8", "-Xms512m", "-Xmx1024m", "-Xshareclasses:cacheDir=/javaSharedCache,readonly", "-Xquickstart", "-cp", "/metadata-dal/hops-metadata-dal-3.2.0.0-SNAPSHOT.jar:/javaAction/build/libs/javaAction-all.jar:/java_runtime_dependencies/*", "-Djava.library.path=/usr/lib64/", "org.apache.openwhisk.runtime.java.action.Proxy"]
