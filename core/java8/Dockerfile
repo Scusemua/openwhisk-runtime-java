@@ -45,7 +45,7 @@ ENV LANG="en_US.UTF-8" \
 	UPDATE=222 \
 	BUILD=10 \
    LIBNDBPATH=/usr/lib64 \
-   LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LIBNDBPATH \
+   LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LIBNDBPATH:/native/ \
    HADOOP_CONF_DIR="/conf/"
 
 # Add the C++ NDB code to the image.
@@ -82,8 +82,4 @@ RUN cd /javaAction \
 	&& ./compileClassCache.sh
 
 # I added "-Xms512m" and "-Xmx1024m" to increase memory allocated to the JVM.
-#CMD ["java", "-Dfile.encoding=UTF-8", "-Xms512m", "-Xmx1024m", "-Xshareclasses:cacheDir=/javaSharedCache,readonly", "-Xquickstart", "-cp", "/javaAction/build/libs/javaAction-all.jar:/metadata-dal/hops-metadata-dal-3.2.0.3-SNAPSHOT.jar:/javaAction/build/libs/javaAction-all.jar:/conf/:/java_runtime_dependencies/*", "-Djava.library.path=/usr/lib64/", "-Dsun.io.serialization.extendedDebugInfo=true","-Dlog4j.configuration=file:/conf/log4j.properties","org.apache.openwhisk.runtime.java.action.Proxy"]
-
-CMD ["java", "-Dfile.encoding=UTF-8", "-Xms512m", "-Xmx1024m", "-Xshareclasses:cacheDir=/javaSharedCache,readonly", "-Xquickstart", "-cp", "/javaAction/build/libs/javaAction-all.jar", "-Djava.library.path=/native/:/usr/lib64/", "-Dsun.io.serialization.extendedDebugInfo=true", "-Dlog4j.configuration=file:/conf/log4j.properties","org.apache.openwhisk.runtime.java.action.Proxy"]
-
-# CMD ["java", "-Dfile.encoding=UTF-8", "-Xms512m", "-Xmx1024m", "-Xshareclasses:cacheDir=/javaSharedCache,readonly", "-Xquickstart", "-cp", "/metadata-dal/hops-metadata-dal-3.2.0.0-SNAPSHOT.jar:/javaAction/build/libs/javaAction-all.jar:/java_runtime_dependencies/*", "-Djava.library.path=/usr/lib64/", "org.apache.openwhisk.runtime.java.action.Proxy"]
+CMD ["java", "-Dfile.encoding=UTF-8", "-Xms512m", "-Xmx1024m", "-Xshareclasses:cacheDir=/javaSharedCache,readonly", "-Xquickstart", "-cp", "/javaAction/build/libs/javaAction-all.jar", "-Djava.library.path=/native/", "-Dsun.io.serialization.extendedDebugInfo=true", "-Dlog4j.configuration=file:/conf/log4j.properties","org.apache.openwhisk.runtime.java.action.Proxy"]
