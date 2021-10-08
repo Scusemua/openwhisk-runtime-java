@@ -44,12 +44,9 @@ ENV LANG="en_US.UTF-8" \
 	VERSION=8 \
 	UPDATE=222 \
 	BUILD=10 \
-   LIBNDBPATH=/usr/lib64 \
+   LIBNDBPATH=/native/ \
    LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LIBNDBPATH:/native/ \
    HADOOP_CONF_DIR="/conf/"
-
-# Add the C++ NDB code to the image.
-ADD libndbclient.so /usr/lib64/libndbclient.so
 
 ADD proxy /javaAction
 
