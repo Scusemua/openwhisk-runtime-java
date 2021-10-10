@@ -17,6 +17,10 @@
 <!-- Put site-specific property overrides in this file. -->
 
 <configuration>
+   <property>
+      <name>storage.ndb.debug.enabled</name>
+      <value>true</value>
+   </property>
    <!-- Enable POSIX ACLs. They are disabled by default. -->
    <property>
       <name>dfs.namenode.acls.enabled</name>
