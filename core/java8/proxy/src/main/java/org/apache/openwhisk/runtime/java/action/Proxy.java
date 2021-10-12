@@ -208,6 +208,7 @@ public class Proxy {
                     statusCode = 200;
 
                 System.out.println("Writing response with status code " + statusCode + " to user now...");
+                System.out.println("Action output: " + output);
                 Proxy.writeResponse(t, statusCode, output.toString());
 
                 return;
