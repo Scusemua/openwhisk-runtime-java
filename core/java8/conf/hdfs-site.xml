@@ -18,6 +18,18 @@
 
 <configuration>
    <property>
+      <name>serverless.task.timeoutmillis</name>
+      <value>35000</value>
+   </property>
+   <property>
+      <name>serverless.tcp.enabled</name>
+      <value>true</value>
+   </property>
+   <property>
+      <name>serverless.http.maxretries</name>
+      <value>3</value>
+   </property>
+   <property>
       <name>storage.ndb.debug.enabled</name>
       <value>true</value>
    </property>

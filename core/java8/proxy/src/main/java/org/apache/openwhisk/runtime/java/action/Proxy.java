@@ -192,14 +192,6 @@ public class Proxy {
                     throw new NullPointerException("The action returned null");
                 }
 
-                /*if (output.has("statusCode")) {
-                    System.out.println("Writing customized response to user now...");
-                    Proxy.writeResponse(t, output); // Ben implemented this.
-                } else {
-                    System.out.println("Writing standard response to user now...");
-                    Proxy.writeResponse(t, 200, output.toString());
-                }*/
-
                 int statusCode;
 
                 if (output.has("statusCode"))
@@ -210,8 +202,6 @@ public class Proxy {
                 System.out.println("Writing response with status code " + statusCode + " to user now...");
                 System.out.println("Action output: " + output);
                 Proxy.writeResponse(t, statusCode, output.toString());
-
-                return;
             } catch (InvocationTargetException ite) {
                 // These are exceptions from the action, wrapped in ite because
                 // of reflection
