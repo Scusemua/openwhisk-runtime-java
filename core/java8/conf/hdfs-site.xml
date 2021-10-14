@@ -18,11 +18,11 @@
 
 <configuration>
    <property>
-      <name>serverless.task.purgeinterval</name>
+      <name>serverless.task.purgeinterval</name> <!-- How often to attempt to purge things from the cache. -->
       <value>10000</value> <!-- Every ten seconds. -->
    </property>
    <property>
-      <name>serverless.task.cacheinterval</name>
+      <name>serverless.task.cacheinterval</name> <!-- How long previous results stay cached. -->
       <value>20000</value> <!-- Every twenty seconds. -->
    </property>
    <property>
