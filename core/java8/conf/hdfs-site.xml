@@ -18,6 +18,14 @@
 
 <configuration>
    <property>
+      <name>serverless.task.purgeinterval</name>
+      <value>10000</value> <!-- Every ten seconds. -->
+   </property>
+   <property>
+      <name>serverless.task.cacheinterval</name>
+      <value>20000</value> <!-- Every twenty seconds. -->
+   </property>
+   <property>
       <name>serverless.task.timeoutmillis</name>
       <value>35000</value>
    </property>
