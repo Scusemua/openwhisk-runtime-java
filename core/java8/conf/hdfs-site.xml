@@ -18,6 +18,10 @@
 
 <configuration>
    <property>
+      <name>serverless.zookeepers.hosts</name>
+      <value>10.241.64.14:2181</value>
+   </property>
+   <property>
       <name>serverless.task.purgeinterval</name> <!-- How often to attempt to purge things from the cache. -->
       <value>10000</value> <!-- Every ten seconds. -->
    </property>
