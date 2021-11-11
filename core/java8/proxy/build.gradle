@@ -61,7 +61,6 @@ dependencies {
     compile "org.apache.httpcomponents:httpclient:4.5.2"
     compile "org.apache.httpcomponents:httpcore:4.4.4"
     compile "org.apache.sshd:sshd-core:1.6.0"
-    compile "org.apache.zookeeper:zookeeper:3.4.13"
     compile "org.bouncycastle:bcpkix-jdk15on:1.56"
     compile "org.bouncycastle:bcprov-jdk15on:1.56"
     compile "org.codehaus.woodstox:stax2-api:3.1.4"
