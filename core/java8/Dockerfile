@@ -44,6 +44,7 @@ ENV LANG="en_US.UTF-8" \
 	VERSION=8 \
 	UPDATE=222 \
 	BUILD=10 \
+   __OW_ALLOW_CONCURRENT=true \
    LIBNDBPATH=/native/ \
    LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LIBNDBPATH:/native/ \
    HADOOP_CONF_DIR="/conf/"
@@ -54,7 +55,7 @@ ADD proxy /javaAction
 ADD ndb-config.properties /metadata-dal/ndb-config.properties
 
 # This is the Metadata DAL NDB implementation. Used by serverless namenode to communicate with NDB.
-ADD hops-metadata-dal-impl-ndb-3.2.0.3-SNAPSHOT.jar /metadata-dal/hops-metadata-dal-impl-ndb-3.2.0.3-SNAPSHOT.jar
+#ADD hops-metadata-dal-impl-ndb-3.2.0.3-SNAPSHOT.jar /metadata-dal/hops-metadata-dal-impl-ndb-3.2.0.3-SNAPSHOT.jar
 #ADD hops-metadata-dal-3.2.0.3-SNAPSHOT.jar /metadata-dal/hops-metadata-dal-3.2.0.3-SNAPSHOT.jar
 
 # This contains more required HopsFS/Hadoop code, but it is not necessarily specific to the serverless namenode or HDFS itself.
