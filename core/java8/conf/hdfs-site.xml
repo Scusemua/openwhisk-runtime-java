@@ -31,6 +31,10 @@
       <value>false</value>
    </property>
    <property>
+      <name>dfs.quota.enabled</name>
+      <value>false</value>
+   </property>
+   <property>
       <name>serverless.task.cacheinterval</name> <!-- How long previous results stay cached. -->
       <value>20000</value> <!-- Every twenty seconds. -->
    </property>
