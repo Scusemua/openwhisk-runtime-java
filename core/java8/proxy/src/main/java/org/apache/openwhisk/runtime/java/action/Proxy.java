@@ -62,6 +62,7 @@ public class Proxy {
 
     private static void writeResponse(HttpExchange t, int code, String content) throws IOException {
         byte[] bytes = content.getBytes(StandardCharsets.UTF_8);
+        System.out.println("Writing " + bytes.length + " bytes back to client...");
         t.sendResponseHeaders(code, bytes.length);
         OutputStream os = t.getResponseBody();
         os.write(bytes);
@@ -201,7 +202,11 @@ public class Proxy {
 
                 System.out.println("Writing response with status code " + statusCode + " to user now...");
                 System.out.println("Action output: " + output);
+                long writeRespStart = System.nanoTime();
                 Proxy.writeResponse(t, statusCode, output.toString());
+                long writeRespEnd = System.nanoTime();
+                double writeRespDuration = (writeRespEnd - writeRespStart) / 1000000.0;
+                System.out.println("Write response to user in " + writeRespDuration + " milliseconds.");
             } catch (InvocationTargetException ite) {
                 // These are exceptions from the action, wrapped in ite because
                 // of reflection
