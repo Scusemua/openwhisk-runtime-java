@@ -51,7 +51,9 @@ public class Proxy {
         this.server.createContext("/init", new InitHandler());
         this.server.createContext("/run", new RunHandler());
 
-        boolean concurrencyEnabled = Boolean.parseBoolean(System.getProperty("__OW_ALLOW_CONCURRENT"));
+        String concurrencyProperty = System.getProperty("__OW_ALLOW_CONCURRENT");
+        System.out.println("__OW_ALLOW_CONCURRENT = " + concurrencyProperty);
+        boolean concurrencyEnabled = Boolean.parseBoolean(concurrencyProperty);
 
         if (concurrencyEnabled) {
             System.out.println("Action-level concurrency is ENABLED.");
