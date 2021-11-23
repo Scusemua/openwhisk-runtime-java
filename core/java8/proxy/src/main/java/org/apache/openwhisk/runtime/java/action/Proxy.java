@@ -31,10 +31,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import java.lang.reflect.Method;
-import java.io.File;
-import java.net.URLClassLoader;
-import java.net.URL;
+import java.util.concurrent.Executors;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -53,7 +50,16 @@ public class Proxy {
 
         this.server.createContext("/init", new InitHandler());
         this.server.createContext("/run", new RunHandler());
-        this.server.setExecutor(null); // creates a default executor
+
+        boolean concurrencyEnabled = Boolean.parseBoolean(System.getProperty("__OW_ALLOW_CONCURRENT"));
+
+        if (concurrencyEnabled) {
+            System.out.println("Action-level concurrency is ENABLED.");
+            this.server.setExecutor(Executors.newCachedThreadPool()); // Multi-threaded executor.
+        } else {
+            System.out.println("Action-level concurrency is DISABLED.");
+            this.server.setExecutor(null); // Default executor.
+        }
     }
 
     public void start() {
