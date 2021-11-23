@@ -41,7 +41,7 @@ import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
 public class Proxy {
-    private HttpServer server;
+    private final HttpServer server;
 
     private JarLoader loader = null;
 
@@ -207,7 +207,7 @@ public class Proxy {
                     statusCode = 200;
 
                 System.out.println("Writing response with status code " + statusCode + " to user now...");
-                System.out.println("Action output: " + output);
+                // System.out.println("Action output: " + output);
                 long writeRespStart = System.nanoTime();
                 Proxy.writeResponse(t, statusCode, output.toString());
                 long writeRespEnd = System.nanoTime();
