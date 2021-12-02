@@ -17,6 +17,10 @@
 <!-- Put site-specific property overrides in this file. -->
 
 <configuration>
+	<property>
+		<name>serverless.metadatacache.enabled</name>
+		<value>true</value>
+	</property>
    <property>
       <name>serverless.zookeepers.hosts</name>
       <value>10.241.64.14:2181</value>

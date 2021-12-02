@@ -31,10 +31,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import java.lang.reflect.Method;
-import java.io.File;
-import java.net.URLClassLoader;
-import java.net.URL;
+import java.util.concurrent.Executors;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -44,7 +41,7 @@ import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
 public class Proxy {
-    private HttpServer server;
+    private final HttpServer server;
 
     private JarLoader loader = null;
 
@@ -53,7 +50,18 @@ public class Proxy {
 
         this.server.createContext("/init", new InitHandler());
         this.server.createContext("/run", new RunHandler());
-        this.server.setExecutor(null); // creates a default executor
+
+        String concurrencyProperty = System.getenv("__OW_ALLOW_CONCURRENT");
+        System.out.println("__OW_ALLOW_CONCURRENT = " + concurrencyProperty);
+        boolean concurrencyEnabled = Boolean.parseBoolean(concurrencyProperty);
+
+        if (concurrencyEnabled) {
+            System.out.println("Action-level concurrency is ENABLED.");
+            this.server.setExecutor(Executors.newCachedThreadPool()); // Multi-threaded executor.
+        } else {
+            System.out.println("Action-level concurrency is DISABLED.");
+            this.server.setExecutor(null); // Default executor.
+        }
     }
 
     public void start() {
@@ -201,7 +209,7 @@ public class Proxy {
                     statusCode = 200;
 
                 System.out.println("Writing response with status code " + statusCode + " to user now...");
-                System.out.println("Action output: " + output);
+                // System.out.println("Action output: " + output);
                 long writeRespStart = System.nanoTime();
                 Proxy.writeResponse(t, statusCode, output.toString());
                 long writeRespEnd = System.nanoTime();
