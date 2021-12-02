@@ -36,11 +36,11 @@
    </property>
    <property>
       <name>dfs.transaction.stats.enabled</name>
-      <value>true</value>
+      <value>false</value>
    </property>
    <property>
       <name>dfs.transaction.stats.detailed.enabled</name>
-      <value>true</value>
+      <value>false</value>
    </property>
    <property>
       <name>serverless.task.cacheinterval</name> <!-- How long previous results stay cached. -->
@@ -69,7 +69,7 @@
    <!-- Enable POSIX ACLs. They are disabled by default. -->
    <property>
       <name>dfs.namenode.acls.enabled</name>
-      <value>true</value>
+      <value>false</value>
    </property>
    <property>
       <name>dfs.heartbeat.interval</name>
