@@ -78,6 +78,7 @@ public class Proxy {
     }
 
     public void start() {
+        System.out.println("Starting the proxy's HTTP server now...");
         server.start();
     }
 
@@ -134,6 +135,8 @@ public class Proxy {
                 return;
             }
 
+            System.out.println("RECEIVED INITIALIZATION!");
+
             try {
                 InputStream is = t.getRequestBody();
                 JsonParser parser = new JsonParser();
@@ -164,12 +167,10 @@ public class Proxy {
                 }
 
                 Proxy.writeError(t, "Missing main/no code to execute.");
-                return;
             } catch (Exception e) {
                 e.printStackTrace(System.err);
                 writeLogMarkers();
                 Proxy.writeError(t, "An error has occurred (see logs for details): " + e);
-                return;
             }
         }
     }
@@ -180,6 +181,8 @@ public class Proxy {
                 Proxy.writeError(t, "Cannot invoke an uninitialized action.");
                 return;
             }
+
+            System.out.println("RECEIVED INVOCATION.");
 
             ClassLoader cl = Thread.currentThread().getContextClassLoader();
             SecurityManager sm = System.getSecurityManager();
@@ -246,7 +249,7 @@ public class Proxy {
         }
     }
 
-    public static void main(String args[]) throws Exception {
+    public static void main(String[] args) throws Exception {
         System.setProperty("sun.io.serialization.extendedDebugInfo", "true");
 
         Proxy proxy = new Proxy(8080);
