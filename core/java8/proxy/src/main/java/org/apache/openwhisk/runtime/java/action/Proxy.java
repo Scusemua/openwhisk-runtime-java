@@ -31,7 +31,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -55,9 +58,19 @@ public class Proxy {
         System.out.println("__OW_ALLOW_CONCURRENT = " + concurrencyProperty);
         boolean concurrencyEnabled = Boolean.parseBoolean(concurrencyProperty);
 
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(
+                10,             // Core size.
+                25,         // Max size.
+                10 * 60,       // Idle timeout.
+                TimeUnit.SECONDS,
+                new ArrayBlockingQueue<Runnable>(30)
+        );
+        executor.allowCoreThreadTimeOut(true);
+
         if (concurrencyEnabled) {
             System.out.println("Action-level concurrency is ENABLED.");
-            this.server.setExecutor(Executors.newCachedThreadPool()); // Multi-threaded executor.
+            // this.server.setExecutor(Executors.newCachedThreadPool()); // Multi-threaded executor.
+            this.server.setExecutor(executor);
         } else {
             System.out.println("Action-level concurrency is DISABLED.");
             this.server.setExecutor(null); // Default executor.
