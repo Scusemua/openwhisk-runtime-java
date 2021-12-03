@@ -35,6 +35,8 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -47,6 +49,8 @@ public class Proxy {
     private final HttpServer server;
 
     private JarLoader loader = null;
+
+    private final Lock initLock = new ReentrantLock();
 
     public Proxy(int port) throws IOException {
         this.server = HttpServer.create(new InetSocketAddress(port), -1);
@@ -137,6 +141,7 @@ public class Proxy {
 
             System.out.println("RECEIVED INITIALIZATION!");
 
+            initLock.lock();
             try {
                 InputStream is = t.getRequestBody();
                 JsonParser parser = new JsonParser();
@@ -171,6 +176,8 @@ public class Proxy {
                 e.printStackTrace(System.err);
                 writeLogMarkers();
                 Proxy.writeError(t, "An error has occurred (see logs for details): " + e);
+            } finally {
+                initLock.unlock();
             }
         }
     }
@@ -185,7 +192,8 @@ public class Proxy {
             System.out.println("RECEIVED INVOCATION.");
 
             ClassLoader cl = Thread.currentThread().getContextClassLoader();
-            SecurityManager sm = System.getSecurityManager();
+            
+            // SecurityManager sm = System.getSecurityManager();
 
             try {
                 InputStream is = t.getRequestBody();
@@ -207,7 +215,7 @@ public class Proxy {
                 // inputObject.addProperty("client_remote_address", t.getRemoteAddress().getHostName());
 
                 Thread.currentThread().setContextClassLoader(loader);
-                System.setSecurityManager(new WhiskSecurityManager());
+                // System.setSecurityManager(new WhiskSecurityManager());
 
                 // User code starts running here.
                 JsonObject output = loader.invokeMain(inputObject, env);
@@ -243,7 +251,7 @@ public class Proxy {
                 Proxy.writeError(t, "An error has occurred (see logs for details): " + e);
             } finally {
                 writeLogMarkers();
-                System.setSecurityManager(sm);
+                // System.setSecurityManager(sm);
                 Thread.currentThread().setContextClassLoader(cl);
             }
         }
