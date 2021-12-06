@@ -191,6 +191,7 @@ public class Proxy {
 
     private class RunHandler implements HttpHandler {
         public void handle(HttpExchange t) throws IOException {
+            System.setSecurityManager(new WhiskSecurityManager());
             if (loader == null) {
                 Proxy.writeError(t, "Cannot invoke an uninitialized action.");
                 return;
@@ -202,7 +203,7 @@ public class Proxy {
 
             ClassLoader cl = Thread.currentThread().getContextClassLoader();
             
-            SecurityManager sm = System.getSecurityManager();
+            // SecurityManager sm = System.getSecurityManager();
 
             try {
                 InputStream is = t.getRequestBody();
