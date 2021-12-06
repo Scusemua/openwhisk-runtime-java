@@ -79,6 +79,8 @@ public class Proxy {
             System.out.println("Action-level concurrency is DISABLED.");
             this.server.setExecutor(null); // Default executor.
         }
+
+        System.setSecurityManager(new WhiskSecurityManager());
     }
 
     public void start() {
@@ -193,7 +195,7 @@ public class Proxy {
 
             ClassLoader cl = Thread.currentThread().getContextClassLoader();
             
-            // SecurityManager sm = System.getSecurityManager();
+            SecurityManager sm = System.getSecurityManager();
 
             try {
                 InputStream is = t.getRequestBody();
@@ -215,7 +217,6 @@ public class Proxy {
                 // inputObject.addProperty("client_remote_address", t.getRemoteAddress().getHostName());
 
                 Thread.currentThread().setContextClassLoader(loader);
-                // System.setSecurityManager(new WhiskSecurityManager());
 
                 // User code starts running here.
                 JsonObject output = loader.invokeMain(inputObject, env);
