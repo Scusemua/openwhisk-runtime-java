@@ -36,7 +36,7 @@ RUN rm -rf /var/lib/apt/lists/* \
 
 EXPOSE 50010
 
-# Set some environment variables. 
+# Set some environment variables.
 # Much of this is done by-default. 
 ENV LANG="en_US.UTF-8" \
 	LANGUAGE="en_US:en" \
@@ -79,5 +79,14 @@ RUN cd /javaAction \
 	&& rm -rf /javaAction/src \
 	&& ./compileClassCache.sh
 
+EXPOSE 9010
+
 # I added "-Xms512m" and "-Xmx1024m" to increase memory allocated to the JVM.
-CMD ["java", "-Dfile.encoding=UTF-8", "-Xms512m", "-Xmx1024m", "-Xshareclasses:cacheDir=/javaSharedCache,readonly", "-Xquickstart", "-cp", "/javaAction/build/libs/javaAction-all.jar", "-Djava.library.path=/native/", "-Dsun.io.serialization.extendedDebugInfo=true", "-Dlog4j.configuration=file:/conf/log4j.properties","org.apache.openwhisk.runtime.java.action.Proxy"]
+CMD ["java", "-Dfile.encoding=UTF-8", "-Xms512m", "-Xmx1024m", "-Xshareclasses:cacheDir=/javaSharedCache,readonly",
+     "-Xquickstart", "-cp", "/javaAction/build/libs/javaAction-all.jar",
+     "-Dcom.sun.management.jmxremote", "-Dcom.sun.management.jmxremote.port=9010",
+     "-Dcom.sun.management.jmxremote.local.only=false", "-Dcom.sun.management.jmxremote.authenticate=false",
+     "-Dcom.sun.management.jmxremote.ssl=false", "-Djava.library.path=/native/",
+     "-Dsun.io.serialization.extendedDebugInfo=true",
+     "-Dlog4j.configuration=file:/conf/log4j.properties",
+     "org.apache.openwhisk.runtime.java.action.Proxy"]
