@@ -21,7 +21,8 @@
 # ===================================================================================================================
 
 # Use AdoptOpenJDK's JDK8, OpenJ9, ubuntu
-FROM adoptopenjdk/openjdk8-openj9:x86_64-ubuntu-jdk8u262-b10_openj9-0.21.0
+# FROM adoptopenjdk/openjdk8-openj9:x86_64-ubuntu-jdk8u262-b10_openj9-0.21.0
+FROM adoptopenjdk/openjdk8:x86_64-ubuntu-jdk8u292-b10
 
 # Install various dependencies.
 RUN rm -rf /var/lib/apt/lists/* \
