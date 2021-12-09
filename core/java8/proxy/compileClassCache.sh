@@ -16,7 +16,13 @@
 # limitations under the License.
 #
 #### Construct Class Cache with HTTP Server classes by starting the server ####
-java "-Xshareclasses:cacheDir=/javaSharedCache/" "-Xquickstart" "-jar" "/javaAction/build/libs/javaAction-all.jar" &
+
+# Used with OpenJ9 JDK.
+# java "-Xshareclasses:cacheDir=/javaSharedCache/" "-Xquickstart" "-jar" "/javaAction/build/libs/javaAction-all.jar" &
+
+# Used with non-OpenJ9 JDK.
+java "-Xquickstart" "-jar" "/javaAction/build/libs/javaAction-all.jar" &
+
 HTTP_PID=$!
 sleep 2
 kill $HTTP_PID
