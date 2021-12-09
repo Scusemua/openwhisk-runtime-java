@@ -88,6 +88,10 @@
       <value>5</value>
    </property>
    <property>
+      <name>serverless.tcp.debuglogenabled</name>
+      <value>false</value>
+   </property>
+   <property>
       <name>serverless.deployments.max</name>
       <value>5</value>
    </property>
