@@ -85,11 +85,11 @@
    </property>
    <property>
       <name>serverless.deployments.baseline</name>
-      <value>3</value>
+      <value>5</value>
    </property>
    <property>
       <name>serverless.deployments.max</name>
-      <value>3</value>
+      <value>5</value>
    </property>
    <property>
       <name>serverless.endpoint</name>
