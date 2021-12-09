@@ -21,7 +21,7 @@
 # java "-Xshareclasses:cacheDir=/javaSharedCache/" "-Xquickstart" "-jar" "/javaAction/build/libs/javaAction-all.jar" &
 
 # Used with non-OpenJ9 JDK.
-java "-Xquickstart" "-jar" "/javaAction/build/libs/javaAction-all.jar" &
+java "-jar" "/javaAction/build/libs/javaAction-all.jar" &
 
 HTTP_PID=$!
 sleep 2
