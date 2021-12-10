@@ -30,6 +30,7 @@ RUN rm -rf /var/lib/apt/lists/* \
     && apt-get update \
     && apt-get -y --no-install-recommends upgrade \
     && apt-get -y --no-install-recommends wget \
+    && apt-get -y --no-install-recommends unzip \
     && apt-get -y --no-install-recommends install locales \
     && apt-get -y install libatomic1 \
     && apt-get clean \
