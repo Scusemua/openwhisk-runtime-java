@@ -73,6 +73,17 @@ ADD native /native/
 # Add contents of the libs/ directory to java_runtime_dependencies/
 ADD libs /java_runtime_dependencies/
 
+###############################
+# YourKit Java Profiler Setup #
+###############################
+
+# Install YourKit Java Profiler agents:
+RUN wget https://www.yourkit.com/download/docker/YourKit-JavaProfiler-2021.11-docker.zip -P /tmp/ && \
+  unzip /tmp/YourKit-JavaProfiler-2021.11-docker.zip -d /usr/local && \
+  rm /tmp/YourKit-JavaProfiler-2021.11-docker.zip
+
+EXPOSE 10001
+
 # From default OpenWhisk image.
 RUN cd /javaAction \
 	&& rm -rf .classpath .gitignore .gradle .project .settings Dockerfile build \
@@ -80,13 +91,31 @@ RUN cd /javaAction \
 	&& rm -rf /javaAction/src \
 	&& ./compileClassCache.sh
 
-EXPOSE 9010
+# EXPOSE 9010
 
-# I added "-Xms512m" and "-Xmx1024m" to increase memory allocated to the JVM.
-# CMD ["java", "-Dfile.encoding=UTF-8", "-Xms512m", "-Xmx1500m", "-Xshareclasses:cacheDir=/javaSharedCache,readonly", "-Xquickstart", "-Dcom.sun.management.jmxremote", "-Dcom.sun.management.jmxremote.port=9010", "-Dcom.sun.management.jmxremote.local.only=false", "-Dcom.sun.management.jmxremote.authenticate=false", "-Dcom.sun.management.jmxremote.ssl=false", "-Dcom.sun.management.jmxremote.rmi.port=9010", "-Djava.rmi.server.hostname=localhost", "-Djava.library.path=/native/", "-Dsun.io.serialization.extendedDebugInfo=true", "-Dlog4j.configuration=file:/conf/log4j.properties", "-cp", "/javaAction/build/libs/javaAction-all.jar", "org.apache.openwhisk.runtime.java.action.Proxy"]
-
-# Used with OpenJ9 JDK.
+# Used with OpenJ9 JDK. Does not support any sort of profiling.
 # CMD ["java", "-Dfile.encoding=UTF-8", "-Xshareclasses:cacheDir=/javaSharedCache,readonly", "-Xquickstart", "-Dcom.sun.management.jmxremote", "-Dcom.sun.management.jmxremote.port=9010", "-Dcom.sun.management.jmxremote.local.only=false", "-Dcom.sun.management.jmxremote.authenticate=false", "-Dcom.sun.management.jmxremote.ssl=false", "-Dcom.sun.management.jmxremote.rmi.port=9010", "-Djava.rmi.server.hostname=localhost", "-Djava.library.path=/native/", "-Dsun.io.serialization.extendedDebugInfo=true", "-Dlog4j.configuration=file:/conf/log4j.properties", "-cp", "/javaAction/build/libs/javaAction-all.jar", "org.apache.openwhisk.runtime.java.action.Proxy"]
 
 # Used with Non-OpenJ9 JDK.
-CMD ["java", "-Dfile.encoding=UTF-8", "-Dcom.sun.management.jmxremote", "-Dcom.sun.management.jmxremote.port=9010", "-Dcom.sun.management.jmxremote.local.only=false", "-Dcom.sun.management.jmxremote.authenticate=false", "-Dcom.sun.management.jmxremote.ssl=false", "-Dcom.sun.management.jmxremote.rmi.port=9010", "-Djava.rmi.server.hostname=localhost", "-Djava.library.path=/native/", "-Dsun.io.serialization.extendedDebugInfo=true", "-Dlog4j.configuration=file:/conf/log4j.properties", "-cp", "/javaAction/build/libs/javaAction-all.jar", "org.apache.openwhisk.runtime.java.action.Proxy"]
+# Supports profiling with VisualVM/JConsole (or any profiler that uses JMX and doesn't require anything more).
+#CMD ["java", "-Dfile.encoding=UTF-8",                                       \
+#             "-Dcom.sun.management.jmxremote",                              \
+#             "-Dcom.sun.management.jmxremote.port=9010",                    \
+#             "-Dcom.sun.management.jmxremote.local.only=false",             \
+#             "-Dcom.sun.management.jmxremote.authenticate=false",           \
+#             "-Dcom.sun.management.jmxremote.ssl=false",                    \
+#             "-Dcom.sun.management.jmxremote.rmi.port=9010",                \
+#             "-Djava.rmi.server.hostname=localhost",                        \
+#             "-Djava.library.path=/native/",                                \
+#             "-Dsun.io.serialization.extendedDebugInfo=true",               \
+#             "-Dlog4j.configuration=file:/conf/log4j.properties",           \
+#             "-cp", "/javaAction/build/libs/javaAction-all.jar", "org.apache.openwhisk.runtime.java.action.Proxy"]
+
+# Used with Non-OpenJ9 JDK.
+# Supports profiling with the YourKit Java profiler.
+CMD ["java", "-Dfile.encoding=UTF-8",                                       \
+             "-agentpath:/usr/local/YourKit-JavaProfiler-2021.11/bin/linux-x86-64/libyjpagent.so=port=10001,listen=all", \
+             "-Djava.library.path=/native/",                                \
+             "-Dsun.io.serialization.extendedDebugInfo=true",               \
+             "-Dlog4j.configuration=file:/conf/log4j.properties",           \
+             "-cp", "/javaAction/build/libs/javaAction-all.jar", "org.apache.openwhisk.runtime.java.action.Proxy"]
