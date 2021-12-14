@@ -64,8 +64,8 @@ public class Proxy {
 
         ThreadPoolExecutor executor = new ThreadPoolExecutor(
                 10,             // Core size.
-                25,         // Max size.
-                10 * 60,       // Idle timeout.
+                25,             // Max size.
+                10 * 60,        // Idle timeout.
                 TimeUnit.SECONDS,
                 new ArrayBlockingQueue<Runnable>(30)
         );
