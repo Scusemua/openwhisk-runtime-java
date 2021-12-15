@@ -23,7 +23,7 @@
 	</property>
    <property>
       <name>serverless.zookeepers.hosts</name>
-      <value>10.241.64.14:2181</value>
+      <value>10.150.0.17:2181</value>
    </property>
    <property>
       <name>serverless.task.purgeinterval</name> <!-- How often to attempt to purge things from the cache. -->
@@ -97,7 +97,7 @@
    </property>
    <property>
       <name>serverless.endpoint</name>
-      <value>https://openwhisk.serverless-mds-cluster-243065a7719552ad2f4388dc81e46642-0000.us-east.containers.appdomain.cloud:443/api/v1/web/whisk.system/default/namenode</value>
+      <value>https://34.75.77.177:444/api/v1/web/whisk.system/default/namenode</value>
    </property>
    <property>
       <name>serverless.platform</name>
