@@ -59,7 +59,7 @@ public class Proxy {
         this.server.createContext("/run", new RunHandler());
 
         String concurrencyProperty = System.getenv("__OW_ALLOW_CONCURRENT");
-        System.out.println("__OW_ALLOW_CONCURRENT = " + concurrencyProperty);
+        // System.out.println("__OW_ALLOW_CONCURRENT = " + concurrencyProperty);
         boolean concurrencyEnabled = Boolean.parseBoolean(concurrencyProperty);
 
         ThreadPoolExecutor executor = new ThreadPoolExecutor(
@@ -72,11 +72,11 @@ public class Proxy {
         executor.allowCoreThreadTimeOut(true);
 
         if (concurrencyEnabled) {
-            System.out.println("Action-level concurrency is ENABLED.");
+            // System.out.println("Action-level concurrency is ENABLED.");
             // this.server.setExecutor(Executors.newCachedThreadPool()); // Multi-threaded executor.
             this.server.setExecutor(executor);
         } else {
-            System.out.println("Action-level concurrency is DISABLED.");
+            // System.out.println("Action-level concurrency is DISABLED.");
             this.server.setExecutor(null); // Default executor.
         }
 
@@ -84,7 +84,7 @@ public class Proxy {
     }
 
     public void start() {
-        System.out.println("Starting the proxy's HTTP server now...");
+        // System.out.println("Starting the proxy's HTTP server now...");
         server.start();
     }
 
