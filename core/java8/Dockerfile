@@ -55,7 +55,7 @@ ENV LANG="en_US.UTF-8" \
 ADD proxy /javaAction
 
 # This is the configuration file for the NDB database. This is used by the serverless namenode.
-ADD ndb-config.properties /metadata-dal/ndb-config.properties
+ADD ndb-config.properties.example /metadata-dal/ndb-config.properties
 
 # This is the Metadata DAL NDB implementation. Used by serverless namenode to communicate with NDB.
 #ADD hops-metadata-dal-impl-ndb-3.2.0.3-SNAPSHOT.jar /metadata-dal/hops-metadata-dal-impl-ndb-3.2.0.3-SNAPSHOT.jar
