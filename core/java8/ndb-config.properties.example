@@ -1,7 +1,7 @@
 
 #    Do not add spaces in the file. it is also used by some deployment scripts that fail if there are redundant spaces
 # Originally, we used "10.150.0.11:1186", but we've changed it to a new node...
-com.mysql.clusterj.connectstring=34.85.243.59:1186
+com.mysql.clusterj.connectstring=10.150.0.18:1186
 com.mysql.clusterj.database=hop_bram_vm
 com.mysql.clusterj.connection.pool.size=1
 com.mysql.clusterj.max.transactions=1024
@@ -10,7 +10,7 @@ com.mysql.clusterj.max.transactions=1024
 io.hops.metadata.ndb.mysqlserver.data_source_class_name=com.mysql.cj.jdbc.MysqlDataSource
 # com.mysql.jdbc.jdbc2.optional.MysqlDataSource
 # We originally used "10.150.0.11" (on GCP), but now we use a new node.
-io.hops.metadata.ndb.mysqlserver.host=34.85.243.59
+io.hops.metadata.ndb.mysqlserver.host=10.150.0.18
 io.hops.metadata.ndb.mysqlserver.port=3306
 io.hops.metadata.ndb.mysqlserver.username=user
 io.hops.metadata.ndb.mysqlserver.password=1325624
