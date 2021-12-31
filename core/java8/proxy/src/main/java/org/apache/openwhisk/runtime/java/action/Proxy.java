@@ -125,7 +125,7 @@ public class Proxy {
 
     private static void writeLogMarkers() {
         System.out.println("XXX_THE_END_OF_A_WHISK_ACTIVATION_XXX");
-        System.err.println("XXX_THE_END_OF_A_WHISK_ACTIVATION_XXX");
+        // System.err.println("XXX_THE_END_OF_A_WHISK_ACTIVATION_XXX");
 
         System.out.println("Heap Memory In-Use: " + (Runtime.getRuntime().totalMemory() / 1000000.0) +
                 " MB\nHeap Memory Free/Available: " + (Runtime.getRuntime().freeMemory() / 1000000.0) +
