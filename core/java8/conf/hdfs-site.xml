@@ -115,4 +115,8 @@
       <name>dfs.storage.driver.class</name>
       <value>io.hops.metadata.ndb.NdbStorageFactory</value>
    </property>
+   <property>
+      <name>serverless.consistency.usendb</name>
+      <value>false</value>
+   </property>
 </configuration>
