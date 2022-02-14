@@ -117,17 +117,15 @@
    </property>
    <property>
       <name>dfs.dir.delete.batch.size</name>
-      <value>50</value> <!-- Default value is 50. -->
+      <value>5</value> <!-- Default value is 50. -->
    </property>
    <!--
       Threshold at which we batch the sub-operations that occur during a subtree delete operation.
-      What this means is that, if a directory within a subtree that we're deleting contains >= this
-      many files, then we use multiple NNs to perform the individual delete operations within that
-      directory. Note that this value should be strictly greater than the `dfs.dir.delete.batch.size`
-      configuration parameter, which defaults to 50.
+      If a directory within a subtree that we're deleting contains >= this many files, then we use
+      multiple NNs to perform the individual delete operations within that directory.
    -->
    <property>
       <name>serverless.subtree.delete.batchsize</name>
-      <value>128</value>
+      <value>10</value>
    </property>
 </configuration>
