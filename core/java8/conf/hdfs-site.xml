@@ -117,7 +117,7 @@
    </property>
    <property>
       <name>dfs.dir.delete.batch.size</name>
-      <value>1</value> <!-- Default value is 50. -->
+      <value>50</value> <!-- Default value is 50. -->
    </property>
    <!--
       Threshold at which we batch the sub-operations that occur during a subtree delete operation.
@@ -126,6 +126,6 @@
    -->
    <property>
       <name>serverless.subtree.delete.batchsize</name>
-      <value>2</value>
+      <value>128</value>
    </property>
 </configuration>
