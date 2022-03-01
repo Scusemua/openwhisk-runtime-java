@@ -126,6 +126,6 @@
    -->
    <property>
       <name>serverless.subtree.delete.batchsize</name>
-      <value>64</value>
+      <value>128</value>
    </property>
 </configuration>

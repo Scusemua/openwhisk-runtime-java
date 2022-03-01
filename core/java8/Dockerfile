@@ -20,24 +20,24 @@
 # THIS IS THE WORKING DOCKERFILE.
 # ===================================================================================================================
 
-# Use AdoptOpenJDK's JDK8, OpenJ9, ubuntu
-# FROM adoptopenjdk/openjdk8-openj9:x86_64-ubuntu-jdk8u262-b10_openj9-0.21.0
-FROM adoptopenjdk/openjdk8:x86_64-ubuntu-jdk8u292-b10
+ARG NUCLIO_LABEL=0.5.6
+ARG NUCLIO_ARCH=amd64
+ARG NUCLIO_BASE_IMAGE=openjdk:9-jre-slim
+ARG NUCLIO_ONBUILD_IMAGE=nuclio/handler-builder-java-onbuild:${NUCLIO_LABEL}-${NUCLIO_ARCH}
 
-# Install various dependencies.
-RUN rm -rf /var/lib/apt/lists/* \
-    && apt-get clean \
-    && apt-get update \
-    && apt-get -y --no-install-recommends upgrade \
-    && apt-get -y --no-install-recommends install wget \
-    && apt-get -y --no-install-recommends install unzip \
-    && apt-get -y --no-install-recommends install locales \
-    && apt-get -y install libatomic1 \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* \
-    && locale-gen en_US.UTF-8
+# Supplies processor, handler.jar
+FROM ${NUCLIO_ONBUILD_IMAGE} as builder
 
-EXPOSE 50010
+# Supplies uhttpc, used for healthcheck
+FROM nuclio/uhttpc:0.0.1-amd64 as uhttpc
+
+# From the base image
+FROM ${NUCLIO_BASE_IMAGE}
+
+# Copy required objects from the suppliers
+COPY --from=builder /home/gradle/bin/processor /usr/local/bin/processor
+COPY --from=builder /home/gradle/src/wrapper/build/libs/nuclio-java-wrapper.jar /opt/nuclio/nuclio-java-wrapper.jar
+COPY --from=uhttpc /home/nuclio/bin/uhttpc /usr/local/bin/uhttpc
 
 # Set some environment variables.
 # Much of this is done by-default. 
@@ -52,18 +52,8 @@ ENV LANG="en_US.UTF-8" \
    LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LIBNDBPATH:/native/ \
    HADOOP_CONF_DIR="/conf/"
 
-ADD proxy /javaAction
-
 # This is the configuration file for the NDB database. This is used by the serverless namenode.
 ADD ndb-config.properties /metadata-dal/ndb-config.properties
-
-# This is the Metadata DAL NDB implementation. Used by serverless namenode to communicate with NDB.
-#ADD hops-metadata-dal-impl-ndb-3.2.0.3-SNAPSHOT.jar /metadata-dal/hops-metadata-dal-impl-ndb-3.2.0.3-SNAPSHOT.jar
-#ADD hops-metadata-dal-3.2.0.3-SNAPSHOT.jar /metadata-dal/hops-metadata-dal-3.2.0.3-SNAPSHOT.jar
-
-# This contains more required HopsFS/Hadoop code, but it is not necessarily specific to the serverless namenode or HDFS itself.
-# COMMENTED OUT: I'm just moving hadoop-common to the libs/ directory.
-# ADD hadoop-common-3.2.0.3-SNAPSHOT.jar /java_runtime_dependencies/hadoop-common-3.2.0.3-SNAPSHOT.jar
 
 # Add contents of the conf/ directory to conf/
 ADD conf /conf/
@@ -75,57 +65,8 @@ ADD native /native/
 # Add contents of the libs/ directory to java_runtime_dependencies/
 ADD libs /java_runtime_dependencies/
 
-###############################
-# YourKit Java Profiler Setup #
-###############################
+# Readiness probe
+HEALTHCHECK --interval=1s --timeout=3s CMD /usr/local/bin/uhttpc --url http://127.0.0.1:8082/ready || exit 1
 
-# Install YourKit Java Profiler agents:
-#RUN wget https://www.yourkit.com/download/docker/YourKit-JavaProfiler-2021.11-docker.zip -P /tmp/ && \
-#  unzip /tmp/YourKit-JavaProfiler-2021.11-docker.zip -d /usr/local && \
-#  rm /tmp/YourKit-JavaProfiler-2021.11-docker.zip
-
-# EXPOSE 10001
-
-# From default OpenWhisk image.
-RUN cd /javaAction \
-	&& rm -rf .classpath .gitignore .gradle .project .settings Dockerfile build \
-	&& ./gradlew oneJar \
-	&& rm -rf /javaAction/src \
-	&& ./compileClassCache.sh
-
-# EXPOSE 9010
-
-# Used with OpenJ9 JDK. Does not support any sort of profiling.
- CMD ["java", "-Dfile.encoding=UTF-8", "-Xshareclasses:cacheDir=/javaSharedCache,readonly", "-Xquickstart", "-Dcom.sun.management.jmxremote", "-Dcom.sun.management.jmxremote.port=9010", "-Dcom.sun.management.jmxremote.local.only=false", "-Dcom.sun.management.jmxremote.authenticate=false", "-Dcom.sun.management.jmxremote.ssl=false", "-Dcom.sun.management.jmxremote.rmi.port=9010", "-Djava.rmi.server.hostname=localhost", "-Djava.library.path=/native/", "-Dsun.io.serialization.extendedDebugInfo=true", "-Dlog4j.configuration=file:/conf/log4j.properties", "-cp", "/javaAction/build/libs/javaAction-all.jar", "org.apache.openwhisk.runtime.java.action.Proxy"]
-
-# Used with Non-OpenJ9 JDK.
-# Does NOT support any type of profiling.
-CMD ["java", "-Dfile.encoding=UTF-8",                                       \
-             "-Djava.library.path=/native/",                                \
-             "-Dsun.io.serialization.extendedDebugInfo=true",               \
-             "-Dlog4j.configuration=file:/conf/log4j.properties",           \
-             "-cp", "/javaAction/build/libs/javaAction-all.jar", "org.apache.openwhisk.runtime.java.action.Proxy"]
-
-# Used with Non-OpenJ9 JDK.
-# Supports profiling with VisualVM/JConsole (or any profiler that uses JMX and doesn't require anything more).
-#CMD ["java", "-Dfile.encoding=UTF-8",                                       \
-#             "-Dcom.sun.management.jmxremote",                              \
-#             "-Dcom.sun.management.jmxremote.port=9010",                    \
-#             "-Dcom.sun.management.jmxremote.local.only=false",             \
-#             "-Dcom.sun.management.jmxremote.authenticate=false",           \
-#             "-Dcom.sun.management.jmxremote.ssl=false",                    \
-#             "-Dcom.sun.management.jmxremote.rmi.port=9010",                \
-#             "-Djava.rmi.server.hostname=localhost",                        \
-#             "-Djava.library.path=/native/",                                \
-#             "-Dsun.io.serialization.extendedDebugInfo=true",               \
-#             "-Dlog4j.configuration=file:/conf/log4j.properties",           \
-#             "-cp", "/javaAction/build/libs/javaAction-all.jar", "org.apache.openwhisk.runtime.java.action.Proxy"]
-
-# Used with Non-OpenJ9 JDK.
-# Supports profiling with the YourKit Java profiler.
-#CMD ["java", "-Dfile.encoding=UTF-8",                                       \
-#             "-agentpath:/usr/local/YourKit-JavaProfiler-2021.11/bin/linux-x86-64/libyjpagent.so=port=10001,listen=all", \
-#             "-Djava.library.path=/native/",                                \
-#             "-Dsun.io.serialization.extendedDebugInfo=true",               \
-#             "-Dlog4j.configuration=file:/conf/log4j.properties",           \
-#             "-cp", "/javaAction/build/libs/javaAction-all.jar", "org.apache.openwhisk.runtime.java.action.Proxy"]
+# Run processor with configuration and platform configuration
+CMD [ "processor" ]
