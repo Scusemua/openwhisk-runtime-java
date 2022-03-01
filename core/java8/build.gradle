@@ -15,5 +15,5 @@
  * limitations under the License.
  */
 
-ext.dockerImageName = 'java8action'
+ext.dockerImageName = 'java9-nuclio'
 apply from: '../../gradle/docker.gradle'
