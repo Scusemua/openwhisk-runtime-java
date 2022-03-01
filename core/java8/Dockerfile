@@ -20,7 +20,7 @@
 # THIS IS THE WORKING DOCKERFILE.
 # ===================================================================================================================
 
-ARG NUCLIO_LABEL=0.5.6
+ARG NUCLIO_LABEL=0.7.1
 ARG NUCLIO_ARCH=amd64
 ARG NUCLIO_BASE_IMAGE=openjdk:9-jre-slim
 ARG NUCLIO_ONBUILD_IMAGE=nuclio/handler-builder-java-onbuild:${NUCLIO_LABEL}-${NUCLIO_ARCH}
