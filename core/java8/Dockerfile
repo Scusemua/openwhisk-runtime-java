@@ -51,7 +51,7 @@ ENV LANG="en_US.UTF-8" \
    LIBNDBPATH=/native/ \
    LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LIBNDBPATH:/native/ \
    HADOOP_CONF_DIR="/conf/" \
-   CLASSPATH="./:/java_runtime_dependencies/*"
+   CLASSPATH="./:/java_runtime_dependencies/*:/conf/"
 
 # This is the configuration file for the NDB database. This is used by the serverless namenode.
 ADD ndb-config.properties /metadata-dal/ndb-config.properties
