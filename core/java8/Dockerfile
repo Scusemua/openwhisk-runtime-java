@@ -50,8 +50,7 @@ ENV LANG="en_US.UTF-8" \
    __OW_ALLOW_CONCURRENT="true" \
    LIBNDBPATH=/native/ \
    LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LIBNDBPATH:/native/ \
-   HADOOP_CONF_DIR="/conf/" \
-   CLASSPATH="./:/java_runtime_dependencies/*:/conf/"
+   HADOOP_CONF_DIR="/conf/"
 
 # This is the configuration file for the NDB database. This is used by the serverless namenode.
 ADD ndb-config.properties /metadata-dal/ndb-config.properties
