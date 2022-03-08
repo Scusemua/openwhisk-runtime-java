@@ -80,7 +80,7 @@
    </property>
    <property>
       <name>serverless.deployments.baseline</name>
-      <value>10</value>
+      <value>1</value>
    </property>
    <property>
       <name>serverless.tcp.debuglogenabled</name>
@@ -88,7 +88,7 @@
    </property>
    <property>
       <name>serverless.deployments.max</name>
-      <value>10</value>
+      <value>1</value>
    </property>
    <property>
       <name>serverless.endpoint</name>
@@ -97,7 +97,11 @@
    </property>
    <property>
       <name>serverless.platform</name>
-      <value>openwhisk</value>
+      <value>nuclio</value>
+   </property>
+      <property>
+           <name>serverless.nuclio.endpoints</name>
+           <value>34.86.54.26</value>
    </property>
    <property>
       <name>dfs.storage.driver.configfile</name>
