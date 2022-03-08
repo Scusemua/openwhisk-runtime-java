@@ -66,7 +66,7 @@ ADD native /native/
 # ADD libs /java_runtime_dependencies/
 
 # Readiness probe
-HEALTHCHECK --interval=1s --timeout=3s CMD /usr/local/bin/uhttpc --url http://127.0.0.1:8082/ready || exit 1
+# HEALTHCHECK --interval=1s --timeout=3s CMD /usr/local/bin/uhttpc --url http://127.0.0.1:8082/ready || exit 1
 
 # Run processor with configuration and platform configuration
 CMD [ "processor" ]
