@@ -23,13 +23,14 @@
 ARG NUCLIO_LABEL=1.7.11
 ARG NUCLIO_ARCH=amd64
 ARG NUCLIO_BASE_IMAGE=openjdk:9-jre-slim
-ARG NUCLIO_ONBUILD_IMAGE=nuclio/handler-builder-java-onbuild:${NUCLIO_LABEL}-${NUCLIO_ARCH}
+ARG NUCLIO_DOCKER_REPO=quay.io/nuclio
+ARG NUCLIO_ONBUILD_IMAGE=handler-builder-java-onbuild:${NUCLIO_LABEL}-${NUCLIO_ARCH}
 
 # Supplies processor, handler.jar
-FROM ${NUCLIO_ONBUILD_IMAGE} as builder
+FROM ${NUCLIO_DOCKER_REPO}/${NUCLIO_ONBUILD_IMAGE} as builder
 
 # Supplies uhttpc, used for healthcheck
-FROM nuclio/uhttpc:0.0.1-amd64 as uhttpc
+FROM quay.io/nuclio/uhttpc:0.0.1-amd64 as uhttpc
 
 # From the base image
 FROM ${NUCLIO_BASE_IMAGE}
