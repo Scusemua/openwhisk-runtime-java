@@ -29,16 +29,12 @@ ARG NUCLIO_ONBUILD_IMAGE=handler-builder-java-onbuild:${NUCLIO_LABEL}-${NUCLIO_A
 # Supplies processor, handler.jar
 FROM ${NUCLIO_DOCKER_REPO}/${NUCLIO_ONBUILD_IMAGE} as builder
 
-# Supplies uhttpc, used for healthcheck
-FROM quay.io/nuclio/uhttpc:0.0.1-amd64 as uhttpc
-
 # From the base image
 FROM ${NUCLIO_BASE_IMAGE}
 
 # Copy required objects from the suppliers
 COPY --from=builder /home/gradle/bin/processor /usr/local/bin/processor
 COPY --from=builder /home/gradle/src/wrapper/build/libs/nuclio-java-wrapper.jar /opt/nuclio/nuclio-java-wrapper.jar
-COPY --from=uhttpc /home/nuclio/bin/uhttpc /usr/local/bin/uhttpc
 
 # Set some environment variables.
 # Much of this is done by-default. 
