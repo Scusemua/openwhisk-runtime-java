@@ -91,6 +91,10 @@
       <value>1</value>
    </property>
    <property>
+      <name>serverless.additional.libs.folder</name>
+      <value>/additional_java_libs/</value>
+   </property>
+   <property>
       <name>serverless.endpoint</name>
       <value>https://34.86.224.47:444/api/v1/web/whisk.system/default/namenode</value>
       <!--<value>https://34.75.77.177:444/api/v1/web/whisk.system/default/namenode</value>-->

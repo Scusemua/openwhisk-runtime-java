@@ -48,6 +48,9 @@ ADD ndb-config.properties /metadata-dal/ndb-config.properties
 # Add contents of the conf/ directory to conf/
 ADD conf /conf/
 
+# Extra dependencies that we'll add at runtime.
+ADD libs /additional_java_libs/
+
 # Add the contents of the native/ directory to native/.
 # These would be the custom-built native hadoop libraries.
 ADD native /native/
