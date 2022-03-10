@@ -24,7 +24,7 @@ if (end < start):
 
 print("Deploying namenode%d through namenode%d (inclusive). Configuration files in directory '%s'." % (start, end-1, directory))
 
-for i in range(start, end + 1):
+for i in range(start, end):
     config_file_path = os.path.join(directory, "namenode%d.yaml" % i)
 
     if not os.path.exists(config_file_path):
