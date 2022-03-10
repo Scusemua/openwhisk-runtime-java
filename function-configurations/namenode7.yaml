@@ -1,0 +1,30 @@
+
+apiVersion: "nuclio.io/v1"
+kind: NuclioFunction
+metadata:
+  name: namenode7
+spec:
+  image: scusemua/java9-nuclio:latest
+  runtime: java
+  handler: org.apache.hadoop.hdfs.serverless.NuclioHandler
+  replicas: 0
+
+  resources:
+    requests:
+      cpu: 0.5
+      memory: 1024M
+    limits:
+      cpu: 1.5
+      memory: 1280M
+  env:
+    - name: FUNCTION_NAME
+      value: namenode7
+  platform:
+    healthCheck:
+      enabled: false
+  runtimeAttributes:
+    jvmOptions:
+      - "-Dlog4j.debug"
+      - "-Djava.library.path=/native/"
+      - "-Dsun.io.serialization.extendedDebugInfo=true"
+      - "-Dlog4j.configuration=file:/conf/log4j.properties"
