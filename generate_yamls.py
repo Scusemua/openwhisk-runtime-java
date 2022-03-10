@@ -9,7 +9,7 @@ import os
 parser = argparse.ArgumentParser()
 
 parser.add_argument("-d", "--directory", type = str, default = "./function-configurations/", help = "Output directory.")
-parser.add_argument("-o", "--overwrite", type = str, default = False, help = "Overwrite existing .YAML files.")
+parser.add_argument("-o", "--overwrite", action = 'store-true', help = "Overwrite existing .YAML files.")
 parser.add_argument("-s", "--start", type = int, default = 0, help = "Starting index of YAML to to generate (inclusive).")
 parser.add_argument("-e", "--end", type = int, default = 10, help = "Ending index of YAML to generate (exclusive).")
 
@@ -23,7 +23,7 @@ spec:
   image: scusemua/java9-nuclio:latest
   runtime: java
   handler: org.apache.hadoop.hdfs.serverless.NuclioHandler
-  replicas: 0
+  maxReplicas: 8
 
   resources:
     requests:
