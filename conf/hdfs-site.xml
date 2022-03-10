@@ -29,7 +29,8 @@
       <name>serverless.task.purgeinterval</name> <!-- How often to attempt to purge things from the cache. -->
       <value>10000</value> <!-- Every ten seconds. -->
    </property>
-   <!-- Disable quota for now. It causes errors with subtree protocol. -->
+   <!-- Disable quota for now. It causes errors with subtree protocol (there's just an extra step we haven't
+        added support for yet). -->
    <property>
       <name>dfs.namenode.quota.enabled</name>
       <value>false</value>

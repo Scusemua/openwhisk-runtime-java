@@ -27,7 +27,7 @@ print("Deploying namenode%d through namenode%d (inclusive). Configuration files 
 for i in range(start, end + 1):
     config_file_path = os.path.join(directory, "namenode%d.yaml" % i)
 
-    if not os.path.exists(current_filename):
+    if not os.path.exists(config_file_path):
         print("[ERROR] File '%s' does not exist. Cannot deploy NameNode%d. Skipping..." % (config_file_path, i))
         continue
 
