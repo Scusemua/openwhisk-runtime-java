@@ -81,7 +81,7 @@
    </property>
    <property>
       <name>serverless.deployments.baseline</name>
-      <value>10</value>
+      <value>5</value>
    </property>
    <property>
       <name>serverless.tcp.debuglogenabled</name>
@@ -89,7 +89,7 @@
    </property>
    <property>
       <name>serverless.deployments.max</name>
-      <value>10</value>
+      <value>5</value>
    </property>
    <property>
       <name>serverless.additional.libs.folder</name>
