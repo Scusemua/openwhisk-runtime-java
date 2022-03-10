@@ -125,6 +125,10 @@
       <value>false</value>
    </property>
    <property>
+      <name>serverless.nuclio.endpoints</name>
+      <value>34.86.213.46,34.150.154.89,35.245.217.170,35.186.179.151,34.86.174.125</value>
+   </property>
+   <property>
       <name>dfs.dir.delete.batch.size</name>
       <value>50</value> <!-- Default value is 50. -->
    </property>
