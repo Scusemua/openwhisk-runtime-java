@@ -23,7 +23,8 @@
 	</property>
    <property>
       <name>serverless.zookeepers.hosts</name>
-      <value>10.150.0.17:2181,10.150.15.214:2181,10.241.64.15:2181</value>
+      <!--<value>10.150.0.17:2181,10.150.15.214:2181,10.241.64.15:2181</value>-->
+      <value>10.150.0.17:2181</value>
    </property>
    <property>
       <name>serverless.task.purgeinterval</name> <!-- How often to attempt to purge things from the cache. -->
@@ -127,6 +128,10 @@
    <property>
       <name>serverless.nuclio.endpoints</name>
       <value>34.86.213.46,34.150.154.89,35.245.217.170,35.186.179.151,34.86.174.125</value>
+   </property>
+   <property>
+      <name>dfs.namenode.xattrs.enabled</name>
+      <value>false</value>
    </property>
    <property>
       <name>dfs.dir.delete.batch.size</name>
