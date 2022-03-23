@@ -23,7 +23,8 @@
 	</property>
    <property>
       <name>serverless.zookeepers.hosts</name>
-      <value>10.150.0.17:2181,10.150.15.214:2181,10.241.64.15:2181</value>
+      <!--<value>10.150.0.17:2181,10.150.15.214:2181,10.241.64.15:2181</value>-->
+      <value>10.150.0.17:2181</value>
    </property>
    <property>
       <name>serverless.task.purgeinterval</name> <!-- How often to attempt to purge things from the cache. -->
@@ -118,6 +119,10 @@
    <property>
       <name>dfs.dir.delete.batch.size</name>
       <value>50</value> <!-- Default value is 50. -->
+   </property>
+   <property>
+      <name>dfs.namenode.xattrs.enabled</name>
+      <value>false</value>
    </property>
    <!--
       Threshold at which we batch the sub-operations that occur during a subtree delete operation.
