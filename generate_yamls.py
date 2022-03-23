@@ -23,7 +23,8 @@ spec:
   image: scusemua/java9-nuclio:latest
   runtime: java
   handler: org.apache.hadoop.hdfs.serverless.NuclioHandler
-  maxReplicas: 8
+  maxReplicas: 1
+  minReplicas: 1
 
   resources:
     requests:
