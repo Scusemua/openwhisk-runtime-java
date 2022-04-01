@@ -17,14 +17,14 @@
 <!-- Put site-specific property overrides in this file. -->
 
 <configuration>
-	<property>
-		<name>serverless.metadatacache.enabled</name>
-		<value>true</value>
-	</property>
+   <property>
+      <name>serverless.metadatacache.enabled</name>
+      <value>true</value>
+   </property>
    <property>
       <name>serverless.zookeepers.hosts</name>
-      <value>10.150.0.17:2181</value>
-      <!--<value>10.150.0.17:2181,10.150.15.214:2181,10.241.64.15:2181</value>-->
+      <!--<value>10.150.0.17:2181</value>-->
+      <value>10.150.0.17:2181,10.150.15.214:2181,10.241.64.15:2181</value>
    </property>
    <property>
       <name>serverless.task.purgeinterval</name> <!-- How often to attempt to purge things from the cache. -->
@@ -137,4 +137,12 @@
       <name>serverless.subtree.delete.batchsize</name>
       <value>64</value>
    </property>
+       <property>
+        <name>serverless.straggler.mitigation.enabled</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>serverless.straggler.mitigation.threshold</name>
+        <value>3</value>
+    </property>    
 </configuration>
