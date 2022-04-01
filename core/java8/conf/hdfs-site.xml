@@ -137,7 +137,7 @@
       <name>serverless.subtree.delete.batchsize</name>
       <value>64</value>
    </property>
-       <property>
+    <property>
         <name>serverless.straggler.mitigation.enabled</name>
         <value>true</value>
     </property>
