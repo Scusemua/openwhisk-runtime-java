@@ -37,7 +37,7 @@ RUN rm -rf /var/lib/apt/lists/* \
     && rm -rf /var/lib/apt/lists/* \
     && locale-gen en_US.UTF-8
 
-EXPOSE 50010
+#EXPOSE 50010
 
 # Set some environment variables.
 # Much of this is done by-default. 
@@ -104,6 +104,7 @@ CMD ["java", "-Dfile.encoding=UTF-8",                                       \
              "-Djava.library.path=/native/",                                \
              "-Dsun.io.serialization.extendedDebugInfo=true",               \
              "-Dlog4j.configuration=file:/conf/log4j.properties",           \
+             "-XX:-UseGCOverheadLimit",                                     \
              "-cp", "/javaAction/build/libs/javaAction-all.jar", "org.apache.openwhisk.runtime.java.action.Proxy"]
 
 # Used with Non-OpenJ9 JDK.
