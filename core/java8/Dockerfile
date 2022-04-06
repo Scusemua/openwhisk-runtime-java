@@ -20,9 +20,10 @@
 # THIS IS THE WORKING DOCKERFILE.
 # ===================================================================================================================
 
-# Use AdoptOpenJDK's JDK8, OpenJ9, ubuntu
-# FROM adoptopenjdk/openjdk8-openj9:x86_64-ubuntu-jdk8u262-b10_openj9-0.21.0
-FROM adoptopenjdk/openjdk8:x86_64-ubuntu-jdk8u292-b10
+# Use AdoptOpenJDK's JDK8, OpenJ9, ubuntu for non-profiling.
+FROM adoptopenjdk/openjdk8-openj9:x86_64-ubuntu-jdk8u262-b10_openj9-0.21.0
+# Use this when profiling.
+# FROM adoptopenjdk/openjdk8:x86_64-ubuntu-jdk8u292-b10
 
 # Install various dependencies.
 RUN rm -rf /var/lib/apt/lists/* \
@@ -80,9 +81,9 @@ ADD libs /java_runtime_dependencies/
 ###############################
 
 # Install YourKit Java Profiler agents:
-RUN wget https://www.yourkit.com/download/docker/YourKit-JavaProfiler-2021.11-docker.zip -P /tmp/ && \
-  unzip /tmp/YourKit-JavaProfiler-2021.11-docker.zip -d /usr/local && \
-  rm /tmp/YourKit-JavaProfiler-2021.11-docker.zip
+#RUN wget https://www.yourkit.com/download/docker/YourKit-JavaProfiler-2021.11-docker.zip -P /tmp/ && \
+#  unzip /tmp/YourKit-JavaProfiler-2021.11-docker.zip -d /usr/local && \
+#  rm /tmp/YourKit-JavaProfiler-2021.11-docker.zip
 
 # EXPOSE 10001
 
@@ -123,9 +124,9 @@ EXPOSE 9010
 
 # Used with Non-OpenJ9 JDK.
 # Supports profiling with the YourKit Java profiler.
-CMD ["java", "-Dfile.encoding=UTF-8",                                       \
-             "-agentpath:/usr/local/YourKit-JavaProfiler-2021.11/bin/linux-x86-64/libyjpagent.so=port=10001,listen=all", \
-             "-Djava.library.path=/native/",                                \
-             "-Dsun.io.serialization.extendedDebugInfo=true",               \
-             "-Dlog4j.configuration=file:/conf/log4j.properties",           \
-             "-cp", "/javaAction/build/libs/javaAction-all.jar", "org.apache.openwhisk.runtime.java.action.Proxy"]
+#CMD ["java", "-Dfile.encoding=UTF-8",                                       \
+#             "-agentpath:/usr/local/YourKit-JavaProfiler-2021.11/bin/linux-x86-64/libyjpagent.so=port=10001,listen=all", \
+#             "-Djava.library.path=/native/",                                \
+#             "-Dsun.io.serialization.extendedDebugInfo=true",               \
+#             "-Dlog4j.configuration=file:/conf/log4j.properties",           \
+#             "-cp", "/javaAction/build/libs/javaAction-all.jar", "org.apache.openwhisk.runtime.java.action.Proxy"]
