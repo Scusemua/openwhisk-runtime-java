@@ -21,9 +21,9 @@
 # ===================================================================================================================
 
 # Use AdoptOpenJDK's JDK8, OpenJ9, ubuntu for non-profiling.
-FROM adoptopenjdk/openjdk8-openj9:x86_64-ubuntu-jdk8u262-b10_openj9-0.21.0
+# FROM adoptopenjdk/openjdk8-openj9:x86_64-ubuntu-jdk8u262-b10_openj9-0.21.0
 # Use this when profiling.
-# FROM adoptopenjdk/openjdk8:x86_64-ubuntu-jdk8u292-b10
+FROM adoptopenjdk/openjdk8:x86_64-ubuntu-jdk8u292-b10
 
 # Install various dependencies.
 RUN rm -rf /var/lib/apt/lists/* \
@@ -94,18 +94,18 @@ RUN cd /javaAction \
 	&& rm -rf /javaAction/src \
 	&& ./compileClassCache.sh
 
-EXPOSE 9010
+#EXPOSE 9010
 
 # Used with OpenJ9 JDK. Does not support any sort of profiling.
  CMD ["java", "-Dfile.encoding=UTF-8", "-Xshareclasses:cacheDir=/javaSharedCache,readonly", "-Xquickstart", "-Dcom.sun.management.jmxremote", "-Dcom.sun.management.jmxremote.port=9010", "-Dcom.sun.management.jmxremote.local.only=false", "-Dcom.sun.management.jmxremote.authenticate=false", "-Dcom.sun.management.jmxremote.ssl=false", "-Dcom.sun.management.jmxremote.rmi.port=9010", "-Djava.rmi.server.hostname=localhost", "-Djava.library.path=/native/", "-Dsun.io.serialization.extendedDebugInfo=true", "-Dlog4j.configuration=file:/conf/log4j.properties", "-cp", "/javaAction/build/libs/javaAction-all.jar", "org.apache.openwhisk.runtime.java.action.Proxy"]
 
 # Used with Non-OpenJ9 JDK.
 # Does NOT support any type of profiling.
-#CMD ["java", "-Dfile.encoding=UTF-8",                                       \
-#             "-Djava.library.path=/native/",                                \
-#             "-Dsun.io.serialization.extendedDebugInfo=true",               \
-#             "-Dlog4j.configuration=file:/conf/log4j.properties",           \
-#             "-cp", "/javaAction/build/libs/javaAction-all.jar", "org.apache.openwhisk.runtime.java.action.Proxy"]
+CMD ["java", "-Dfile.encoding=UTF-8",                                       \
+             "-Djava.library.path=/native/",                                \
+             "-Dsun.io.serialization.extendedDebugInfo=true",               \
+             "-Dlog4j.configuration=file:/conf/log4j.properties",           \
+             "-cp", "/javaAction/build/libs/javaAction-all.jar", "org.apache.openwhisk.runtime.java.action.Proxy"]
 
 # Used with Non-OpenJ9 JDK.
 # Supports profiling with VisualVM/JConsole (or any profiler that uses JMX and doesn't require anything more).
