@@ -57,14 +57,6 @@ ADD proxy /javaAction
 # This is the configuration file for the NDB database. This is used by the serverless namenode.
 ADD ndb-config.properties /metadata-dal/ndb-config.properties
 
-# This is the Metadata DAL NDB implementation. Used by serverless namenode to communicate with NDB.
-#ADD hops-metadata-dal-impl-ndb-3.2.0.3-SNAPSHOT.jar /metadata-dal/hops-metadata-dal-impl-ndb-3.2.0.3-SNAPSHOT.jar
-#ADD hops-metadata-dal-3.2.0.3-SNAPSHOT.jar /metadata-dal/hops-metadata-dal-3.2.0.3-SNAPSHOT.jar
-
-# This contains more required HopsFS/Hadoop code, but it is not necessarily specific to the serverless namenode or HDFS itself.
-# COMMENTED OUT: I'm just moving hadoop-common to the libs/ directory.
-# ADD hadoop-common-3.2.0.3-SNAPSHOT.jar /java_runtime_dependencies/hadoop-common-3.2.0.3-SNAPSHOT.jar
-
 # Add contents of the conf/ directory to conf/
 ADD conf /conf/
 
@@ -105,6 +97,9 @@ CMD ["java", "-Dfile.encoding=UTF-8",                                       \
              "-Dsun.io.serialization.extendedDebugInfo=true",               \
              "-Dlog4j.configuration=file:/conf/log4j.properties",           \
              "-XX:-UseGCOverheadLimit",                                     \
+             "-verbose:gc",                                                 \
+             "-XX:+PrintGCTimeStamps",                                      \
+             "-XX:+PrintGCDetails",                                         \
              "-cp", "/javaAction/build/libs/javaAction-all.jar", "org.apache.openwhisk.runtime.java.action.Proxy"]
 
 # Used with Non-OpenJ9 JDK.
