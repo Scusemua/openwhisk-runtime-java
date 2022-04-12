@@ -106,7 +106,7 @@ CMD ["java", "-Dfile.encoding=UTF-8",                                       \
              # Instructs GC to collect young gen first before Full GC or CMS remark phase.
              # This improves performance due to no need to check ref between young gen and tenured.
              "-XX:+CMSScavengeBeforeRemark",                                \
-             "-XX:ScavengeBeforeFullGC",                                    \
+             "-XX:+ScavengeBeforeFullGC",                                   \
              "-verbose:gc",                                                 \
              "-XX:+PrintGCTimeStamps",                                      \
              "-XX:+PrintGCDetails",                                         \
