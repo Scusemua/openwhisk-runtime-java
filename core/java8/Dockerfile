@@ -96,7 +96,17 @@ CMD ["java", "-Dfile.encoding=UTF-8",                                       \
              "-Djava.library.path=/native/",                                \
              "-Dsun.io.serialization.extendedDebugInfo=true",               \
              "-Dlog4j.configuration=file:/conf/log4j.properties",           \
+             # Throw error if we spend too much time GC-ing.
+             # Useful to detect this type of issue.
              "-XX:-UseGCOverheadLimit",                                     \
+             # Prevent usage of GC heuristics so GC is more predictable.
+             "-XX:+UseCMSInitiatingOccupancyOnly",                          \
+             # Informs JVM when CMS should be triggered. We cache a lot of objects, so I've set it a little higher.
+             "-XX:CMSInitiatingOccupancyFraction=75",                       \
+             # Instructs GC to collect young gen first before Full GC or CMS remark phase.
+             # This improves performance due to no need to check ref between young gen and tenured.
+             "-XX:+CMSScavengeBeforeRemark",                                \
+             "-XX:ScavengeBeforeFullGC",                                    \
              "-verbose:gc",                                                 \
              "-XX:+PrintGCTimeStamps",                                      \
              "-XX:+PrintGCDetails",                                         \
