@@ -96,6 +96,10 @@ CMD ["java", "-Dfile.encoding=UTF-8",                                       \
              "-Djava.library.path=/native/",                                \
              "-Dsun.io.serialization.extendedDebugInfo=true",               \
              "-Dlog4j.configuration=file:/conf/log4j.properties",           \
+             # Max heap size, set the same as min heap size.
+             "-Xmx:7500m",                                                  \
+             # Min heap size, set the same as max heap size.
+             "-Xms:7500m",                                                  \
              # Throw error if we spend too much time GC-ing.
              # Useful to detect this type of issue.
              "-XX:-UseGCOverheadLimit",                                     \
