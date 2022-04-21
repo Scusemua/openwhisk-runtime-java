@@ -76,8 +76,6 @@ RUN wget https://www.yourkit.com/download/docker/YourKit-JavaProfiler-2022.3-doc
   unzip /tmp/YourKit-JavaProfiler-2022.3-docker.zip -d /usr/local && \
   rm /tmp/YourKit-JavaProfiler-2022.3-docker.zip
 
-EXPOSE 10001
-
 # From default OpenWhisk image.
 RUN cd /javaAction \
 	&& rm -rf .classpath .gitignore .gradle .project .settings Dockerfile build \
@@ -85,7 +83,8 @@ RUN cd /javaAction \
 	&& rm -rf /javaAction/src \
 	&& ./compileClassCache.sh
 
-EXPOSE 9010
+# Profiler ports + MySQL.
+EXPOSE 1186 2202 3306 9010 10001
 
 # Used with OpenJ9 JDK. Does not support any sort of profiling.
 # CMD ["java", "-Dfile.encoding=UTF-8", "-Xshareclasses:cacheDir=/javaSharedCache,readonly", "-Xquickstart", "-Dcom.sun.management.jmxremote", "-Dcom.sun.management.jmxremote.port=9010", "-Dcom.sun.management.jmxremote.local.only=false", "-Dcom.sun.management.jmxremote.authenticate=false", "-Dcom.sun.management.jmxremote.ssl=false", "-Dcom.sun.management.jmxremote.rmi.port=9010", "-Djava.rmi.server.hostname=localhost", "-Djava.library.path=/native/", "-Dsun.io.serialization.extendedDebugInfo=true", "-Dlog4j.configuration=file:/conf/log4j.properties", "-cp", "/javaAction/build/libs/javaAction-all.jar", "org.apache.openwhisk.runtime.java.action.Proxy"]
