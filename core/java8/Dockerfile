@@ -114,6 +114,8 @@ CMD ["java", "-Dfile.encoding=UTF-8",                                       \
              "-verbose:gc",                                                 \
              "-XX:+PrintGCTimeStamps",                                      \
              "-XX:+PrintGCDetails",                                         \
+             "-XX:MaxNewSize=3000m",                                        \
+             "-XX:+CMSClassUnloadingEnabled",                               \
              "-XX:+UseAdaptiveSizePolicy",                                  \
              "-XX:MaxGCPauseMillis=200",                                    \
              "-agentpath:/usr/local/YourKit-JavaProfiler-2022.3/bin/linux-x86-64/libyjpagent.so=port=10001,listen=all", \
