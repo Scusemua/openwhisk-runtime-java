@@ -96,6 +96,7 @@ CMD ["java", "-Dfile.encoding=UTF-8",                                       \
              "-Djava.library.path=/native/",                                \
              "-Dsun.io.serialization.extendedDebugInfo=true",               \
              "-Dlog4j.configuration=file:/conf/log4j.properties",           \
+	         "-XX:+UseConcMarkSweepGC",					                    \
              # Max heap size, set the same as min heap size.
              "-Xmx7000m",                                                   \
              # Min heap size, set the same as max heap size.
@@ -118,15 +119,12 @@ CMD ["java", "-Dfile.encoding=UTF-8",                                       \
              "-XX:+CMSClassUnloadingEnabled",                               \
              "-XX:+UseAdaptiveSizePolicy",                                  \
              "-XX:MaxGCPauseMillis=200",                                    \
-             "-XX:+PrintTenuringDistribution",			            \
-	     "-XX:+UseConcMarkSweepGC",					    \
-             #"-XX:NewSize=300m",					    \
-	     #"-XX:MaxNewSize=500m",					    \
-   	     "-XX:MaxTenuringThreshold=2",				    \
-	     "-XX:+CMSIncrementalMode",					    \
-	     "-XX:+UnlockDiagnosticVMOptions",                              \
-	     "-XX:ParGCCardsPerStrideChunk=32768",		 	    \
-	     "-agentpath:/usr/local/YourKit-JavaProfiler-2022.3/bin/linux-x86-64/libyjpagent.so=port=10001,listen=all", \
+             "-XX:+PrintTenuringDistribution",			                    \
+             "-XX:MaxTenuringThreshold=2",				                    \
+             "-XX:+CMSIncrementalMode",					                    \
+             "-XX:+UnlockDiagnosticVMOptions",                              \
+             "-XX:ParGCCardsPerStrideChunk=32768",		 	                \
+             "-agentpath:/usr/local/YourKit-JavaProfiler-2022.3/bin/linux-x86-64/libyjpagent.so=port=10001,listen=all", \
              "-cp", "/javaAction/build/libs/javaAction-all.jar", "org.apache.openwhisk.runtime.java.action.Proxy"]
 
 # Used with Non-OpenJ9 JDK.
