@@ -116,7 +116,7 @@ CMD ["java", "-Dfile.encoding=UTF-8",                                       \
              "-XX:+PrintGCDetails",                                         \
              "-XX:MaxNewSize=3000m",                                        \
              "-XX:+CMSClassUnloadingEnabled",                               \
-             "-XX:MaxGCPauseMillis=200",                                    \
+             "-XX:MaxGCPauseMillis=250",                                    \
              "-XX:+PrintTenuringDistribution",			                    \
              "-XX:MaxTenuringThreshold=2",				                    \
              "-XX:+UnlockDiagnosticVMOptions",                              \
