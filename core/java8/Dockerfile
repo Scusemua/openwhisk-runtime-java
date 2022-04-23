@@ -72,9 +72,9 @@ ADD libs /java_runtime_dependencies/
 ###############################
 
 # Install YourKit Java Profiler agents:
-RUN wget https://www.yourkit.com/download/docker/YourKit-JavaProfiler-2022.3-docker.zip -P /tmp/ && \
-  unzip /tmp/YourKit-JavaProfiler-2022.3-docker.zip -d /usr/local && \
-  rm /tmp/YourKit-JavaProfiler-2022.3-docker.zip
+#RUN wget https://www.yourkit.com/download/docker/YourKit-JavaProfiler-2022.3-docker.zip -P /tmp/ && \
+#  unzip /tmp/YourKit-JavaProfiler-2022.3-docker.zip -d /usr/local && \
+#  rm /tmp/YourKit-JavaProfiler-2022.3-docker.zip
 
 # From default OpenWhisk image.
 RUN cd /javaAction \
@@ -114,14 +114,14 @@ CMD ["java", "-Dfile.encoding=UTF-8",                                       \
              "-verbose:gc",                                                 \
              "-XX:+PrintGCTimeStamps",                                      \
              "-XX:+PrintGCDetails",                                         \
-             "-XX:MaxNewSize=3000m",                                        \
+             "-XX:MaxNewSize=5000m",                                        \
              "-XX:+CMSClassUnloadingEnabled",                               \
              "-XX:MaxGCPauseMillis=250",                                    \
              "-XX:+PrintTenuringDistribution",			                    \
              "-XX:MaxTenuringThreshold=2",				                    \
              "-XX:+UnlockDiagnosticVMOptions",                              \
              "-XX:ParGCCardsPerStrideChunk=32768",		 	                \
-             "-agentpath:/usr/local/YourKit-JavaProfiler-2022.3/bin/linux-x86-64/libyjpagent.so=port=10001,listen=all", \
+             #"-agentpath:/usr/local/YourKit-JavaProfiler-2022.3/bin/linux-x86-64/libyjpagent.so=port=10001,listen=all", \
              "-cp", "/javaAction/build/libs/javaAction-all.jar", "org.apache.openwhisk.runtime.java.action.Proxy"]
 
 # Used with Non-OpenJ9 JDK.
