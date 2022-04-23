@@ -114,10 +114,10 @@ CMD ["java", "-Dfile.encoding=UTF-8",                                       \
              "-verbose:gc",                                                 \
              "-XX:+PrintGCTimeStamps",                                      \
              "-XX:+PrintGCDetails",                                         \
-             "-XX:MaxNewSize=5000m",                                        \
+             "-XX:MaxNewSize=6000m",                                        \
              "-XX:+CMSClassUnloadingEnabled",                               \
-             "-XX:MaxGCPauseMillis=250",                                    \
-             "-XX:+PrintTenuringDistribution",			                    \
+             "-XX:MaxGCPauseMillis=350",                                    \
+             #"-XX:+PrintTenuringDistribution",			                    \
              "-XX:MaxTenuringThreshold=2",				                    \
              "-XX:+UnlockDiagnosticVMOptions",                              \
              "-XX:ParGCCardsPerStrideChunk=32768",		 	                \
