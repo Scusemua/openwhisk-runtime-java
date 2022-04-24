@@ -127,8 +127,8 @@ public class Proxy {
         System.out.println("XXX_THE_END_OF_A_WHISK_ACTIVATION_XXX");
         // System.err.println("XXX_THE_END_OF_A_WHISK_ACTIVATION_XXX");
 
-        System.out.println("Heap Memory In-Use: " + (Runtime.getRuntime().totalMemory() / 1000000.0) +
-                " MB\nHeap Memory Free/Available: " + (Runtime.getRuntime().freeMemory() / 1000000.0) +
+        System.out.println("Total Heap Memory: " + (Runtime.getRuntime().totalMemory() / 1000000.0) +
+                " MB\nAvailable Heap Memory: " + (Runtime.getRuntime().freeMemory() / 1000000.0) +
                 " MB.");
 
         System.out.flush();
