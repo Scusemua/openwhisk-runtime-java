@@ -19,7 +19,7 @@
 <configuration>
 	<property>
 		<name>fs.default.name</name>
-		<value>hdfs://10.150.0.17:9000</value>
+		<value>hdfs://10.150.0.10:9000</value>
 	</property>
 	<property>
 		<name>hadoop.security.authentication</name>
