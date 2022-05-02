@@ -119,8 +119,8 @@ CMD ["java", "-Dfile.encoding=UTF-8",                                       \
              "-XX:MaxGCPauseMillis=350",                                    \
              #"-XX:+PrintTenuringDistribution",			                    \
              "-XX:MaxTenuringThreshold=2",				                    \
-             "-XX:-DisplayVMOutput",                                        \
              "-XX:+UnlockDiagnosticVMOptions",                              \
+             "-XX:-DisplayVMOutput",                                        \
              "-XX:ParGCCardsPerStrideChunk=32768",		 	                \
              #"-agentpath:/usr/local/YourKit-JavaProfiler-2022.3/bin/linux-x86-64/libyjpagent.so=port=10001,listen=all", \
              "-cp", "/javaAction/build/libs/javaAction-all.jar", "org.apache.openwhisk.runtime.java.action.Proxy"]
