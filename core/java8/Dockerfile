@@ -118,6 +118,7 @@ CMD ["java", "-Dfile.encoding=UTF-8",                                       \
              "-XX:+CMSClassUnloadingEnabled",                               \
              "-XX:MaxGCPauseMillis=350",                                    \
              #"-XX:+PrintTenuringDistribution",			                    \
+             "-XX:+PrintGCApplicationStoppedTime",                          \
              "-XX:MaxTenuringThreshold=2",				                    \
              "-XX:+UnlockDiagnosticVMOptions",                              \
              "-XX:-DisplayVMOutput",                                        \
