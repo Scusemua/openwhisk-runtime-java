@@ -124,7 +124,7 @@ CMD ["java", "-Dfile.encoding=UTF-8",                                       \
              "-XX:+PrintSafepointStatistics",                               \
              "-XX:PrintSafepointStatisticsCount=1",                         \
              "-XX:+SafepointTimeout",                                       \
-             "-XX:+SafepointTimeout=100",                                   \
+             "-XX:SafepointTimeoutDelay=50",                                \
              "-XX:ParGCCardsPerStrideChunk=32768",		 	                \
              #"-agentpath:/usr/local/YourKit-JavaProfiler-2022.3/bin/linux-x86-64/libyjpagent.so=port=10001,listen=all", \
              "-cp", "/javaAction/build/libs/javaAction-all.jar", "org.apache.openwhisk.runtime.java.action.Proxy"]
