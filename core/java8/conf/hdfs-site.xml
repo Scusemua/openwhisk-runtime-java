@@ -117,6 +117,10 @@
       <value>1024</value> <!-- Default value is 50. -->
    </property>
    <property>
+      <name>dfs.namenode.accesstime.precision</name>
+      <value>0</value>
+   </property>
+   <property>
       <name>serverless.spoof.ndb</name>
       <value>false</value>
    </property>

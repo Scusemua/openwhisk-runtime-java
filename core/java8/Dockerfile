@@ -114,7 +114,7 @@ CMD ["java", "-Dfile.encoding=UTF-8",                                       \
              "-verbose:gc",                                                 \
              "-XX:+PrintGCTimeStamps",                                      \
              "-XX:+PrintGCDetails",                                         \
-             "-XX:MaxNewSize=6000m",                                        \
+             "-XX:MaxNewSize=5000m",                                        \
              "-XX:+CMSClassUnloadingEnabled",                               \
              "-XX:MaxGCPauseMillis=350",                                    \
              #"-XX:+PrintTenuringDistribution",			                    \
