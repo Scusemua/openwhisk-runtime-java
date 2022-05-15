@@ -48,14 +48,6 @@
       <value>false</value>
    </property>
    <property>
-      <name>serverless.task.cacheinterval</name> <!-- How long previous results stay cached. -->
-      <value>20000</value> <!-- Every twenty seconds. -->
-   </property>
-   <property>
-      <name>serverless.task.timeoutmillis</name>
-      <value>35000</value>
-   </property>
-   <property>
       <name>serverless.tcp.enabled</name>
       <value>true</value>
    </property>

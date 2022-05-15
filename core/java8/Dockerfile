@@ -104,9 +104,9 @@ CMD ["java", "-Dfile.encoding=UTF-8",                                       \
              # Useful to detect this type of issue.
              "-XX:-UseGCOverheadLimit",                                     \
              # Prevent usage of GC heuristics so GC is more predictable.
-             "-XX:+UseCMSInitiatingOccupancyOnly",                          \
+             # "-XX:+UseCMSInitiatingOccupancyOnly",                          \
              # Informs JVM when CMS should be triggered. We cache a lot of objects, so I've set it a little higher.
-             "-XX:CMSInitiatingOccupancyFraction=75",                       \
+             # "-XX:CMSInitiatingOccupancyFraction=75",                       \
              # Instructs GC to collect young gen first before Full GC or CMS remark phase.
              # This improves performance due to no need to check ref between young gen and tenured.
              "-XX:+CMSScavengeBeforeRemark",                                \
