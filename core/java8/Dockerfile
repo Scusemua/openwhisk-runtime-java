@@ -103,7 +103,7 @@ CMD ["java", "-Dfile.encoding=UTF-8",                                       \
              "-Xms7000m",                                                   \
              # Throw error if we spend too much time GC-ing.
              # Useful to detect this type of issue.
-             "-XX:-UseGCOverheadLimit",                                     \
+             # "-XX:-UseGCOverheadLimit",                                     \
              # Prevent usage of GC heuristics so GC is more predictable.
              # "-XX:+UseCMSInitiatingOccupancyOnly",                          \
              # Informs JVM when CMS should be triggered. We cache a lot of objects, so I've set it a little higher.
