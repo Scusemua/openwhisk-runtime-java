@@ -50,7 +50,8 @@ ENV LANG="en_US.UTF-8" \
    __OW_ALLOW_CONCURRENT="true" \
    LIBNDBPATH=/native/ \
    LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LIBNDBPATH:/native/ \
-   HADOOP_CONF_DIR="/conf/"
+   HADOOP_CONF_DIR="/conf/" \
+   __ACTION_MEMORY=7500
 
 ADD proxy /javaAction
 
