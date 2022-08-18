@@ -51,7 +51,7 @@ ENV LANG="en_US.UTF-8" \
    LIBNDBPATH=/native/ \
    LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LIBNDBPATH:/native/ \
    HADOOP_CONF_DIR="/conf/" \
-   __ACTION_MEMORY=7500
+   __ACTION_MEMORY=10500
 
 ADD proxy /javaAction
 
@@ -73,9 +73,9 @@ ADD libs /java_runtime_dependencies/
 ###############################
 
 # Install YourKit Java Profiler agents:
-#RUN wget https://www.yourkit.com/download/docker/YourKit-JavaProfiler-2022.3-docker.zip -P /tmp/ && \
-#  unzip /tmp/YourKit-JavaProfiler-2022.3-docker.zip -d /usr/local && \
-#  rm /tmp/YourKit-JavaProfiler-2022.3-docker.zip
+RUN wget https://www.yourkit.com/download/docker/YourKit-JavaProfiler-2022.3-docker.zip -P /tmp/ && \
+  unzip /tmp/YourKit-JavaProfiler-2022.3-docker.zip -d /usr/local && \
+  rm /tmp/YourKit-JavaProfiler-2022.3-docker.zip
 
 # From default OpenWhisk image.
 RUN cd /javaAction \
@@ -88,7 +88,7 @@ RUN cd /javaAction \
 EXPOSE 1186 2202 3306 9010 10001
 
 # Used with OpenJ9 JDK. Does not support any sort of profiling.
-# CMD ["java", "-Dfile.encoding=UTF-8", "-Xshareclasses:cacheDir=/javaSharedCache,readonly", "-Xquickstart", "-Dcom.sun.management.jmxremote", "-Dcom.sun.management.jmxremote.port=9010", "-Dcom.sun.management.jmxremote.local.only=false", "-Dcom.sun.management.jmxremote.authenticate=false", "-Dcom.sun.management.jmxremote.ssl=false", "-Dcom.sun.management.jmxremote.rmi.port=9010", "-Djava.rmi.server.hostname=localhost", "-Djava.library.path=/native/", "-Dsun.io.serialization.extendedDebugInfo=true", "-Dlog4j.configuration=file:/conf/log4j.properties", "-cp", "/javaAction/build/libs/javaAction-all.jar", "org.apache.openwhisk.runtime.java.action.Proxy"]
+CMD ["java", "-Dfile.encoding=UTF-8", "-Xshareclasses:cacheDir=/javaSharedCache,readonly", "-Xquickstart", "-Dcom.sun.management.jmxremote", "-Dcom.sun.management.jmxremote.port=9010", "-Dcom.sun.management.jmxremote.local.only=false", "-Dcom.sun.management.jmxremote.authenticate=false", "-Dcom.sun.management.jmxremote.ssl=false", "-Dcom.sun.management.jmxremote.rmi.port=9010", "-Djava.rmi.server.hostname=localhost", "-Djava.library.path=/native/", "-Dsun.io.serialization.extendedDebugInfo=true", "-Dlog4j.configuration=file:/conf/log4j.properties", "-cp", "/javaAction/build/libs/javaAction-all.jar", "org.apache.openwhisk.runtime.java.action.Proxy"]
 
 # Used with Non-OpenJ9 JDK.
 # Does NOT support any type of profiling.
@@ -98,9 +98,9 @@ CMD ["java", "-Dfile.encoding=UTF-8",                                       \
              "-Dlog4j.configuration=file:/conf/log4j.properties",           \
 	         "-XX:+UseConcMarkSweepGC",					                    \
              # Max heap size, set the same as min heap size.
-             "-Xmx7000m",                                                   \
+             "-Xmx10500m",                                                   \
              # Min heap size, set the same as max heap size.
-             "-Xms7000m",                                                   \
+             "-Xms10500m",                                                   \
              # Throw error if we spend too much time GC-ing.
              # Useful to detect this type of issue.
              # "-XX:-UseGCOverheadLimit",                                     \
@@ -118,6 +118,7 @@ CMD ["java", "-Dfile.encoding=UTF-8",                                       \
              "-XX:MaxNewSize=5000m",                                        \
              "-XX:+CMSClassUnloadingEnabled",                               \
              "-XX:MaxGCPauseMillis=350",                                    \
+             "-XX:+UseContainerSupport",                                    \
              #"-XX:+PrintTenuringDistribution",			                    \
              #"-XX:+PrintGCApplicationStoppedTime",                          \
              "-XX:MaxTenuringThreshold=2",				                    \
