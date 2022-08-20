@@ -51,7 +51,7 @@ ENV LANG="en_US.UTF-8" \
    LIBNDBPATH=/native/ \
    LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LIBNDBPATH:/native/ \
    HADOOP_CONF_DIR="/conf/" \
-   __ACTION_MEMORY=10500
+   __ACTION_MEMORY=10000
 
 ADD proxy /javaAction
 
@@ -73,9 +73,9 @@ ADD libs /java_runtime_dependencies/
 ###############################
 
 # Install YourKit Java Profiler agents:
-RUN wget https://www.yourkit.com/download/docker/YourKit-JavaProfiler-2022.3-docker.zip -P /tmp/ && \
-  unzip /tmp/YourKit-JavaProfiler-2022.3-docker.zip -d /usr/local && \
-  rm /tmp/YourKit-JavaProfiler-2022.3-docker.zip
+# RUN wget https://www.yourkit.com/download/docker/YourKit-JavaProfiler-2022.3-docker.zip -P /tmp/ && \
+#  unzip /tmp/YourKit-JavaProfiler-2022.3-docker.zip -d /usr/local && \
+#  rm /tmp/YourKit-JavaProfiler-2022.3-docker.zip
 
 # From default OpenWhisk image.
 RUN cd /javaAction \
@@ -98,9 +98,9 @@ CMD ["java", "-Dfile.encoding=UTF-8",                                       \
              "-Dlog4j.configuration=file:/conf/log4j.properties",           \
 	         "-XX:+UseConcMarkSweepGC",					                    \
              # Max heap size, set the same as min heap size.
-             "-Xmx10500m",                                                   \
+             "-Xmx10000m",                                                   \
              # Min heap size, set the same as max heap size.
-             "-Xms10500m",                                                   \
+             "-Xms10000m",                                                   \
              # Throw error if we spend too much time GC-ing.
              # Useful to detect this type of issue.
              # "-XX:-UseGCOverheadLimit",                                     \
@@ -115,7 +115,7 @@ CMD ["java", "-Dfile.encoding=UTF-8",                                       \
              "-verbose:gc",                                                 \
              "-XX:+PrintGCTimeStamps",                                      \
              "-XX:+PrintGCDetails",                                         \
-             "-XX:MaxNewSize=10000m",                                       \
+             "-XX:MaxNewSize=6250m",                                       \
              "-XX:+CMSClassUnloadingEnabled",                               \
              "-XX:MaxGCPauseMillis=350",                                    \
              "-XX:+UseContainerSupport",                                    \
