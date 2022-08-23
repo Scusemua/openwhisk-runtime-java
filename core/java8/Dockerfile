@@ -51,7 +51,7 @@ ENV LANG="en_US.UTF-8" \
    LIBNDBPATH=/native/ \
    LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LIBNDBPATH:/native/ \
    HADOOP_CONF_DIR="/conf/" \
-   __ACTION_MEMORY=10000
+   __ACTION_MEMORY=12500
 
 ADD proxy /javaAction
 
@@ -92,22 +92,22 @@ CMD ["java", "-Dfile.encoding=UTF-8", "-Xshareclasses:cacheDir=/javaSharedCache,
 
 # Used with Non-OpenJ9 JDK.
 # Does NOT support any type of profiling.
-CMD ["java", "-Dfile.encoding=UTF-8",                                       \
-             "-Djava.library.path=/native/",                                \
-             "-Dsun.io.serialization.extendedDebugInfo=true",               \
-             "-Dlog4j.configuration=file:/conf/log4j.properties",           \
-	         "-XX:+UseConcMarkSweepGC",					                    \
+CMD ["java", "-Dfile.encoding=UTF-8",                                        \
+             "-Djava.library.path=/native/",                                 \
+             "-Dsun.io.serialization.extendedDebugInfo=true",                \
+             "-Dlog4j.configuration=file:/conf/log4j.properties",            \
+	         "-XX:+UseConcMarkSweepGC",					                     \
              # Max heap size, set the same as min heap size.
-             "-Xmx10000m",                                                   \
+             "-Xmx7200m",                                                    \
              # Min heap size, set the same as max heap size.
-             "-Xms10000m",                                                   \
+             "-Xms7200m",                                                    \
              # Throw error if we spend too much time GC-ing.
              # Useful to detect this type of issue.
-             # "-XX:-UseGCOverheadLimit",                                     \
+             # "-XX:-UseGCOverheadLimit",                                    \
              # Prevent usage of GC heuristics so GC is more predictable.
-             # "-XX:+UseCMSInitiatingOccupancyOnly",                          \
+             # "-XX:+UseCMSInitiatingOccupancyOnly",                         \
              # Informs JVM when CMS should be triggered. We cache a lot of objects, so I've set it a little higher.
-             # "-XX:CMSInitiatingOccupancyFraction=75",                       \
+             # "-XX:CMSInitiatingOccupancyFraction=75",                      \
              # Instructs GC to collect young gen first before Full GC or CMS remark phase.
              # This improves performance due to no need to check ref between young gen and tenured.
              "-XX:+CMSScavengeBeforeRemark",                                \
@@ -115,18 +115,18 @@ CMD ["java", "-Dfile.encoding=UTF-8",                                       \
              "-verbose:gc",                                                 \
              "-XX:+PrintGCTimeStamps",                                      \
              "-XX:+PrintGCDetails",                                         \
-             "-XX:MaxNewSize=6250m",                                       \
+             "-XX:MaxNewSize=4400m",                                        \
              "-XX:+CMSClassUnloadingEnabled",                               \
              "-XX:MaxGCPauseMillis=350",                                    \
              "-XX:+UseContainerSupport",                                    \
              #"-XX:+PrintTenuringDistribution",			                    \
-             #"-XX:+PrintGCApplicationStoppedTime",                          \
+             #"-XX:+PrintGCApplicationStoppedTime",                         \
              "-XX:MaxTenuringThreshold=2",				                    \
              "-XX:+UnlockDiagnosticVMOptions",                              \
-             #"-XX:+PrintSafepointStatistics",                               \
-             #"-XX:PrintSafepointStatisticsCount=1",                         \
-             #"-XX:+SafepointTimeout",                                       \
-             #"-XX:SafepointTimeoutDelay=50",                                \
+             #"-XX:+PrintSafepointStatistics",                              \
+             #"-XX:PrintSafepointStatisticsCount=1",                        \
+             #"-XX:+SafepointTimeout",                                      \
+             #"-XX:SafepointTimeoutDelay=50",                               \
              "-XX:ParGCCardsPerStrideChunk=2048",		 	                \
              #"-agentpath:/usr/local/YourKit-JavaProfiler-2022.3/bin/linux-x86-64/libyjpagent.so=port=10001,listen=all", \
              "-cp", "/javaAction/build/libs/javaAction-all.jar", "org.apache.openwhisk.runtime.java.action.Proxy"]
