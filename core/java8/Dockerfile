@@ -51,7 +51,7 @@ ENV LANG="en_US.UTF-8" \
    LIBNDBPATH=/native/ \
    LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LIBNDBPATH:/native/ \
    HADOOP_CONF_DIR="/conf/" \
-   __ACTION_MEMORY=12500
+   __ACTION_MEMORY=14500
 
 ADD proxy /javaAction
 
@@ -98,9 +98,9 @@ CMD ["java", "-Dfile.encoding=UTF-8",                                        \
              "-Dlog4j.configuration=file:/conf/log4j.properties",            \
 	         "-XX:+UseConcMarkSweepGC",					                     \
              # Max heap size, set the same as min heap size.
-             "-Xmx7000m",                                                    \
+             "-Xmx7500m",                                                    \
              # Min heap size, set the same as max heap size.
-             "-Xms7000m",                                                    \
+             "-Xms7500m",                                                    \
              # Throw error if we spend too much time GC-ing.
              # Useful to detect this type of issue.
              # "-XX:-UseGCOverheadLimit",                                    \
@@ -115,7 +115,7 @@ CMD ["java", "-Dfile.encoding=UTF-8",                                        \
              "-verbose:gc",                                                 \
              "-XX:+PrintGCTimeStamps",                                      \
              "-XX:+PrintGCDetails",                                         \
-             "-XX:MaxNewSize=4400m",                                        \
+             "-XX:MaxNewSize=4750m",                                        \
              "-XX:+CMSClassUnloadingEnabled",                               \
              "-XX:MaxGCPauseMillis=350",                                    \
              "-XX:+UseContainerSupport",                                    \

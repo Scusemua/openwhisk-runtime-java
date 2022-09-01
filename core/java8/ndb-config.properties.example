@@ -1,5 +1,5 @@
 
-#    Do not add spaces in the file. it is also used by some deployment scripts that fail if there are redundant spaces
+# Do not add spaces in the file. it is also used by some deployment scripts that fail if there are redundant spaces
 # Originally, we used "10.150.0.11:1186", but we've changed it to a new node...
 com.mysql.clusterj.connectstring=10.150.0.18:1186
 com.mysql.clusterj.database=hop_bram_vm
@@ -16,10 +16,10 @@ io.hops.metadata.ndb.mysqlserver.username=user
 io.hops.metadata.ndb.mysqlserver.password=1325624
 io.hops.metadata.ndb.mysqlserver.connection_pool_size=4
 
-#size of the session pool. should be at least as big as the number of active RPC handling Threads in the system
+# size of the session pool. should be at least as big as the number of active RPC handling Threads in the system
 io.hops.session.pool.size=4
 
-#Session is reused Random.getNextInt(0,io.hops.session.reuse.count) times and then it is GCed
-#use smaller values if using java 6.
-#if you use java 7 or higher, then use G1GC and there is no need to close sessions. use Int.MAX_VALUE
+# Session is reused Random.getNextInt(0,io.hops.session.reuse.count) times and then it is GCed
+# use smaller values if using java 6.
+# if you use java 7 or higher, then use G1GC and there is no need to close sessions. use Int.MAX_VALUE
 io.hops.session.reuse.count=2147483647
