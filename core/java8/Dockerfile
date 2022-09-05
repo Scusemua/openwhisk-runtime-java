@@ -51,7 +51,7 @@ ENV LANG="en_US.UTF-8" \
    LIBNDBPATH=/native/ \
    LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LIBNDBPATH:/native/ \
    HADOOP_CONF_DIR="/conf/" \
-   __ACTION_MEMORY=14500
+   __ACTION_MEMORY=7250
 
 ADD proxy /javaAction
 
@@ -88,7 +88,7 @@ RUN cd /javaAction \
 EXPOSE 1186 2202 3306 9010 10001
 
 # Used with OpenJ9 JDK. Does not support any sort of profiling.
-CMD ["java", "-Dfile.encoding=UTF-8", "-Xshareclasses:cacheDir=/javaSharedCache,readonly", "-Xquickstart", "-Dcom.sun.management.jmxremote", "-Dcom.sun.management.jmxremote.port=9010", "-Dcom.sun.management.jmxremote.local.only=false", "-Dcom.sun.management.jmxremote.authenticate=false", "-Dcom.sun.management.jmxremote.ssl=false", "-Dcom.sun.management.jmxremote.rmi.port=9010", "-Djava.rmi.server.hostname=localhost", "-Djava.library.path=/native/", "-Dsun.io.serialization.extendedDebugInfo=true", "-Dlog4j.configuration=file:/conf/log4j.properties", "-cp", "/javaAction/build/libs/javaAction-all.jar", "org.apache.openwhisk.runtime.java.action.Proxy"]
+# CMD ["java", "-Dfile.encoding=UTF-8", "-Xshareclasses:cacheDir=/javaSharedCache,readonly", "-Xquickstart", "-Dcom.sun.management.jmxremote", "-Dcom.sun.management.jmxremote.port=9010", "-Dcom.sun.management.jmxremote.local.only=false", "-Dcom.sun.management.jmxremote.authenticate=false", "-Dcom.sun.management.jmxremote.ssl=false", "-Dcom.sun.management.jmxremote.rmi.port=9010", "-Djava.rmi.server.hostname=localhost", "-Djava.library.path=/native/", "-Dsun.io.serialization.extendedDebugInfo=true", "-Dlog4j.configuration=file:/conf/log4j.properties", "-cp", "/javaAction/build/libs/javaAction-all.jar", "org.apache.openwhisk.runtime.java.action.Proxy"]
 
 # Used with Non-OpenJ9 JDK.
 # Does NOT support any type of profiling.
@@ -98,9 +98,10 @@ CMD ["java", "-Dfile.encoding=UTF-8",                                        \
              "-Dlog4j.configuration=file:/conf/log4j.properties",            \
 	         "-XX:+UseConcMarkSweepGC",					                     \
              # Max heap size, set the same as min heap size.
-             "-Xmx7500m",                                                    \
+             "-Xmx7250m",                                                    \
              # Min heap size, set the same as max heap size.
-             "-Xms7500m",                                                    \
+             "-Xmx7250m",                                                    \
+             "-Xcheck:jni",                                                  \
              # Throw error if we spend too much time GC-ing.
              # Useful to detect this type of issue.
              # "-XX:-UseGCOverheadLimit",                                    \
