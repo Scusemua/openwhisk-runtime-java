@@ -100,7 +100,7 @@ CMD ["java", "-Dfile.encoding=UTF-8",                                        \
              # Max heap size, set the same as min heap size.
              "-Xmx7250m",                                                    \
              # Min heap size, set the same as max heap size.
-             "-Xmx7250m",                                                    \
+             "-Xms7250m",                                                    \
              # Throw error if we spend too much time GC-ing.
              # Useful to detect this type of issue.
              # "-XX:-UseGCOverheadLimit",                                    \
