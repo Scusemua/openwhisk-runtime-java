@@ -123,6 +123,7 @@ CMD ["java", "-Dfile.encoding=UTF-8",                                        \
              #"-XX:+PrintGCApplicationStoppedTime",                         \
              "-XX:MaxTenuringThreshold=2",				                    \
              "-XX:+UnlockDiagnosticVMOptions",                              \
+             "-XX:NativeMemoryTracking=summary",                            \
              #"-XX:+PrintSafepointStatistics",                              \
              #"-XX:PrintSafepointStatisticsCount=1",                        \
              #"-XX:+SafepointTimeout",                                      \
