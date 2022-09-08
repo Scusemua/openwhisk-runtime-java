@@ -97,6 +97,8 @@ CMD ["java", "-Dfile.encoding=UTF-8",                                        \
              "-Dsun.io.serialization.extendedDebugInfo=true",                \
              "-Dlog4j.configuration=file:/conf/log4j.properties",            \
 	         "-XX:+UseConcMarkSweepGC",					                     \
+	         # JMX Stuff. All on one line so it can be easily commented-out.
+	         # "-Dcom.sun.management.jmxremote", "-Dcom.sun.management.jmxremote.port=9010", "-Dcom.sun.management.jmxremote.local.only=false", "-Dcom.sun.management.jmxremote.authenticate=false", "-Dcom.sun.management.jmxremote.ssl=false", "-Dcom.sun.management.jmxremote.rmi.port=9010", "-Djava.rmi.server.hostname=localhost", \
              # Max heap size, set the same as min heap size.
              "-Xmx7250m",                                                    \
              # Min heap size, set the same as max heap size.
@@ -115,7 +117,7 @@ CMD ["java", "-Dfile.encoding=UTF-8",                                        \
              "-verbose:gc",                                                 \
              "-XX:+PrintGCTimeStamps",                                      \
              "-XX:+PrintGCDetails",                                         \
-             "-XX:MaxNewSize=4750m",                                        \
+             "-XX:MaxNewSize=6250m",                                        \
              "-XX:+CMSClassUnloadingEnabled",                               \
              "-XX:MaxGCPauseMillis=350",                                    \
              "-XX:+UseContainerSupport",                                    \
