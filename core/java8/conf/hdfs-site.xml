@@ -127,7 +127,12 @@
    -->
    <property>
       <name>serverless.subtree.delete.batchsize</name>
-      <value>64</value>
+      <value>2048</value>
+   </property>
+   <property>
+      <!-- This is used for "large" directories, which are tentatively directories >= 131,072 (2^17). -->
+      <name>serverless.subtree.delete.batchsize.large</name>
+      <value>16384</value>
    </property>
     <property>
         <name>serverless.straggler.mitigation.enabled</name>
