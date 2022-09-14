@@ -90,7 +90,7 @@ public class Proxy {
 
     private static void writeResponse(HttpExchange t, int code, String content) throws IOException {
         byte[] bytes = content.getBytes(StandardCharsets.UTF_8);
-        System.out.println("Writing " + bytes.length + " bytes back to client...");
+        // System.out.println("Writing " + bytes.length + " bytes back to client...");
         t.sendResponseHeaders(code, bytes.length);
         OutputStream os = t.getResponseBody();
         os.write(bytes);
@@ -105,7 +105,7 @@ public class Proxy {
     private static void writeResponse(HttpExchange t, JsonObject result) throws IOException {
         String content = result.toString();
 
-        System.out.println("Response content: " + result);
+        // System.out.println("Response content: " + result);
 
         byte[] bytes = content.getBytes(StandardCharsets.UTF_8);
 
@@ -127,9 +127,9 @@ public class Proxy {
         System.out.println("XXX_THE_END_OF_A_WHISK_ACTIVATION_XXX");
         // System.err.println("XXX_THE_END_OF_A_WHISK_ACTIVATION_XXX");
 
-        System.out.println("Total Heap Memory: " + (Runtime.getRuntime().totalMemory() / 1000000.0) +
-                " MB\nAvailable Heap Memory: " + (Runtime.getRuntime().freeMemory() / 1000000.0) +
-                " MB.");
+        // System.out.println("Total Heap Memory: " + (Runtime.getRuntime().totalMemory() / 1000000.0) +
+        //        " MB\nAvailable Heap Memory: " + (Runtime.getRuntime().freeMemory() / 1000000.0) +
+        //        " MB.");
 
         System.out.flush();
         System.err.flush();
@@ -146,7 +146,7 @@ public class Proxy {
                 return;
             }
 
-            System.out.println("RECEIVED INITIALIZATION!");
+            // System.out.println("RECEIVED INITIALIZATION!");
 
             initLock.lock();
             try {
@@ -197,9 +197,9 @@ public class Proxy {
                 return;
             }
 
-            System.out.println("RECEIVED INVOCATION. Heap Memory In-Use: " + (Runtime.getRuntime().totalMemory() / 1000000.0) +
-                    " MB\nHeap Memory Free/Available: " + (Runtime.getRuntime().freeMemory() / 1000000.0) +
-                    " MB.");
+            // System.out.println("RECEIVED INVOCATION. Heap Memory In-Use: " + (Runtime.getRuntime().totalMemory() / 1000000.0) +
+            //        " MB\nHeap Memory Free/Available: " + (Runtime.getRuntime().freeMemory() / 1000000.0) +
+            //        " MB.");
 
             ClassLoader cl = Thread.currentThread().getContextClassLoader();
             
@@ -241,13 +241,13 @@ public class Proxy {
                 else
                     statusCode = 200;
 
-                System.out.println("Writing response with status code " + statusCode + " to user now...");
+                // System.out.println("Writing response with status code " + statusCode + " to user now...");
                 // System.out.println("Action output: " + output);
                 long writeRespStart = System.nanoTime();
                 Proxy.writeResponse(t, statusCode, output.toString());
                 long writeRespEnd = System.nanoTime();
                 double writeRespDuration = (writeRespEnd - writeRespStart) / 1000000.0;
-                System.out.println("Write response to user in " + writeRespDuration + " milliseconds.");
+                // System.out.println("Write response to user in " + writeRespDuration + " milliseconds.");
             } catch (InvocationTargetException ite) {
                 // These are exceptions from the action, wrapped in ite because
                 // of reflection
