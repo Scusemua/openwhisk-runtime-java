@@ -141,5 +141,10 @@
     <property>
         <name>serverless.straggler.mitigation.threshold</name>
         <value>3</value>
-    </property>    
+    </property>
+   <property>
+      <!-- Maximum number of threads used to execute parallel sub-ops during a subtree operation. -->
+      <name>dfs.namenode.subtree-executor-limit</name>
+      <value>24</value>
+   </property>
 </configuration>
