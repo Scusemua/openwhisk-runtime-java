@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+   <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
 <!--
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +24,9 @@
    <property>
       <name>serverless.zookeepers.hosts</name>
       <!--<value>10.150.0.17:2181</value>-->
-      <value>10.150.0.10:2181,10.150.0.19:2181,10.150.0.18:2181</value>
+      <!-- The ports below are for the old ZooKeeper servers. -->
+      <!--<value>10.150.0.10:2181,10.150.0.19:2181,10.150.0.18:2181</value>-->
+      <value>10.150.0.46:2181,10.150.0.79:2181,10.150.0.81:2181</value>
    </property>
    <property>
       <name>serverless.task.purgeinterval</name> <!-- How often to attempt to purge things from the cache. -->
@@ -119,6 +121,10 @@
    <property>
       <name>dfs.namenode.xattrs.enabled</name>
       <value>false</value>
+   </property>
+   <property>
+      <name>serverless.tx.events.enabled</name>
+      <value>true</value>
    </property>
    <!--
       Threshold at which we batch the sub-operations that occur during a subtree delete operation.
