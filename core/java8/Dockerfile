@@ -51,7 +51,7 @@ ENV LANG="en_US.UTF-8" \
    LIBNDBPATH=/native/ \
    LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LIBNDBPATH:/native/ \
    HADOOP_CONF_DIR="/conf/" \
-   __ACTION_MEMORY=2000
+   __ACTION_MEMORY=7500
 
 ADD proxy /javaAction
 
@@ -100,9 +100,9 @@ CMD ["java", "-Dfile.encoding=UTF-8",                                        \
 	         # JMX Stuff. All on one line so it can be easily commented-out.
 	         # "-Dcom.sun.management.jmxremote", "-Dcom.sun.management.jmxremote.port=9010", "-Dcom.sun.management.jmxremote.local.only=false", "-Dcom.sun.management.jmxremote.authenticate=false", "-Dcom.sun.management.jmxremote.ssl=false", "-Dcom.sun.management.jmxremote.rmi.port=9010", "-Djava.rmi.server.hostname=localhost", \
              # Max heap size, set the same as min heap size.
-             "-Xmx2000m",                                                    \
+             "-Xmx7500m",                                                    \
              # Min heap size, set the same as max heap size.
-             "-Xms2000m",                                                    \
+             "-Xms7500m",                                                    \
              # Throw error if we spend too much time GC-ing.
              # Useful to detect this type of issue.
              # "-XX:-UseGCOverheadLimit",                                    \
@@ -117,7 +117,7 @@ CMD ["java", "-Dfile.encoding=UTF-8",                                        \
              "-verbose:gc",                                                 \
              "-XX:+PrintGCTimeStamps",                                      \
              "-XX:+PrintGCDetails",                                         \
-             "-XX:MaxNewSize=1250m",                                        \
+             "-XX:MaxNewSize=4250m",                                        \
              "-XX:+CMSClassUnloadingEnabled",                               \
              "-XX:MaxGCPauseMillis=350",                                    \
              "-XX:+UseContainerSupport",                                    \
