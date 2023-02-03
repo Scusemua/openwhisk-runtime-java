@@ -26,7 +26,8 @@
       <!--<value>10.150.0.17:2181</value>-->
       <!-- The ports below are for the old ZooKeeper servers. -->
       <!--<value>10.150.0.10:2181,10.150.0.19:2181,10.150.0.18:2181</value>-->
-      <value>10.150.0.46:2181,10.150.0.79:2181,10.150.0.81:2181</value>
+      <!--<value>10.150.0.46:2181,10.150.0.79:2181,10.150.0.81:2181</value>-->
+      <value>ip-10-0-8-233.ec2.internal:2181,ip-10-0-4-113.ec2.internal:2181,ip-10-0-14-89.ec2.internal:2181</value>
    </property>
    <property>
       <name>serverless.task.purgeinterval</name> <!-- How often to attempt to purge things from the cache. -->
@@ -36,6 +37,14 @@
    <property>
       <name>dfs.namenode.quota.enabled</name>
       <value>false</value>
+   </property>
+   <property>
+      <name>num.write-only.deployments</name>
+      <value>2</value>
+   </property>
+   <property>
+	   <name>serverless.metadatacache.capacity</name>
+	   <value>800000</value>
    </property>
    <property>
       <name>dfs.quota.enabled</name>
@@ -82,8 +91,9 @@
       <value>20</value>
    </property>
    <property>
-      <name>serverless.endpoint</name>
-      <value>https://34.86.224.47:444/api/v1/web/whisk.system/default/namenode</value>
+       <name>serverless.endpoint</name>
+       <value>http://a6ac53c56b90f4f598929797575d3211-384507792.us-east-1.elb.amazonaws.com:80/api/v1/web/whisk.system/default/namenode</value>
+      <!--<value>https://34.86.224.47:444/api/v1/web/whisk.system/default/namenode</value>-->
       <!--<value>https://34.75.77.177:444/api/v1/web/whisk.system/default/namenode</value>-->
    </property>
    <property>
